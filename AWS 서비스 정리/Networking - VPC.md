@@ -121,3 +121,151 @@ VPC Peering 연결 이후에 각 VPC간 실제 통신을 하기 위해서는 AWS
 
 VPC Endpoint는 가상 장치로 VPC와 AWS 서비스를 private connection할 수 있도록 한다. 예를 들어 인스턴스에서 S3에 엑세스 할 때, 인터넷 게이트웨이나 NAT등이 필요 없이 VPC Endpoint로 가능하다.
 
+
+
+<br>
+
+## Flow Logs
+
+인터페이스에 들어가는 IP 트래픽에 대한 정보를 캡쳐
+
+모니터와 연결 이슈의 트러블슈트를 도와준다.
+
+Flow logs는 S3와 CloudWatch Logs로 갈 수 있다.
+
+⭐  Flow log를 어떻게 분석할 것인가? => Athena
+
+<br>
+
+## Bastion Hosts
+
+침입 차단 소프트웨어가 설치되어 내부와 외부 네트워크 사이에서 일종의 게이트 역학을 수행하는 호스트를 뜻함.
+
+⭐  bastion host는 오직 port 22만 가진다.
+
+<br>
+
+## Site to Site VPN
+
++ Virtual Private Gateway
+  + VPC에 위치
++ Customer Gateway
+  + Corporate DC(data center)에 위치 
+  + customer gateway device를 위해 static, internet-routble IP 주소를 사용한다.
+  + 만약 NAT뒤에 CGW가 있다면 NAT의 public IP 주소를 사용해야 한다.
+
+위의 둘을 연결하는 것이 VPN Connection
+
+
+
+<br>
+
+## Direct Connect
+
+온프레미스에서 AWS로 전용(private) 네트워크 연결을 쉽게 설정할 수 있는 서비스
+
+IPv4와 IPv6 지원
+
+
+
+<br>
+
+## Direct Connect Gateway
+
+Direct connect를 하나 이상의 다른 region의 VPC들과 연결하려 할 때 사용
+
+대신 CIDR이 겹치면 안된다. 
+
+<br>
+
+
+
+## Direct Connect - Connection Types
+
++ Dedicated Connections
+  + physical ethernet port를 제공받아서 사용해야 하므로 시간이 거릴 수 있다.
++ Hosted Connections
+  + 용량을 추가되거나 줄일 수 있다.
+
+
+
+<br>
+
+## Direct Connect - Encryption
+
+transit에 있는 데이터는 encrypted 되지 않지만 private
+
+<br>
+
+## Egress Only Internet Gateway
+
+IPv6에서만 가능한 Internet Gateway이다.(IPv6는 모든 주소가 public)
+
+IPv4에서는 NAT
+
+Egress Only Internet Gateway는 IPv6 인스턴스가 인터넷에는 접근할 수 있지만, 인터넷에서는 직접 접근할 수 없도록
+
+Route table 편집해야 한다.
+
+<br>
+
+## VPC를 다른 VPC에 노출시키는 방법
+
+1. public으로 만들기
+2. VPC peering
+3. AWS PrivateLink
+
+<br>
+
+## AWS PrivateLink
+
+Network load balancer(Service VPC)와 Elastic Network Interface(Customer VPC)가 요구
+
+<br>
+
+## AWS VPN CloudHub
+
+VPC와 함께 또는 VPC 없이 사용할 수 있는 간단한 허브 앤 스포크 모델로. 사이트들끼지 보안 통신을 제공한다.
+
+<br>
+
+## Transit Gateway
+
+고객이 자신의 Amazon VPC와 온프레미스 네트워크를 단일 게이트웨이에 견결할 수 있도록 지원해 주는 서비스
+
+[추가 내용 참고](https://dev.classmethod.jp/articles/different-from-vpc-peering-and-transit-gateway/)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
