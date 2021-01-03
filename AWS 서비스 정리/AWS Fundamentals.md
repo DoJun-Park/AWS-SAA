@@ -43,6 +43,61 @@ EC2 User data Script는 root user와 실행.
 
 ## EC2 on Demand
 
+사용한만큼 지불
+
+비싼 비용
+
+-> 짧은 기간 그리고 방해받지 않는 워크로드에 추천 (애플리케이션이 어떻게 행동할지 예측 할 수 없는)
+
+<br>
+
+## EC2 Reserved Instances
+
+On-demand보다 75% 비용 절감
+
+-> 고정된 상태의 사용일 때 추천
+
++ Scheduled Reserved instances
+  + time window를 예약해서 사용 가능
+
+<br>
+
+## EC2 Spot Instances
+
+On-demand보다 90% 비용 절감
+
+가장 비용 효과적인 인스턴스
+
+-> 실패에 탄력있는 워크로드에 유용
+
+
+
+좋은 사용 combo : reserved instances for baseline + on-demand + spot for peaks
+
+<br>
+
+## EC2 Dedicated Hosts
+
+고객에게 전용으로 제공되는 물리적 서버
+
+<br>
+
+## Spot Fleets
+
+= set of Spot Instances + (optional)On-demand instances
+
+spot instances를 할당하려는 전략
+
++ 낮은 가격
+
+<br>
+
+
+
+
+
+
+
 
 
 
