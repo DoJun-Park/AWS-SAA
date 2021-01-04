@@ -92,23 +92,17 @@ spot instances를 할당하려는 전략
 
 <br>
 
+Burstable Instances (T2/T3)
 
+예상하지 못한 프로세스가 필요할 때, burst 가능
 
+<br>
 
+## AMI (Amazon Machine Image)
 
+인스턴스를 시작하는 데 필요한 정보를 제공
 
-
-
-
-
-
-
-
-
-
-
-
-
+custom하여 사용도 가능
 
 
 
