@@ -55,6 +55,8 @@ EC2 User data Script는 root user와 실행.
 
 On-demand보다 75% 비용 절감
 
+오랜기간 사용할 계획이 있을 때 사용
+
 -> 고정된 상태의 사용일 때 추천
 
 + Scheduled Reserved instances
@@ -78,7 +80,7 @@ On-demand보다 90% 비용 절감
 
 ## EC2 Dedicated Hosts
 
-고객에게 전용으로 제공되는 물리적 서버
+고객에게 전용으로 제공되는 **물리적 서버**
 
 <br>
 
@@ -152,9 +154,47 @@ EC2 최대 절전 모드로 나중에 필요할 때 다시 가동시킬 수 있�
 
 <br>
 
+## Load balancer
+
+애플리케이션 트래픽 부하 분산
+
+ELB(EC2 Load Balancer)
+
+Type of load balancer
+
++ Classic Load Balancer - old generation(v1)
+  + http, https, tcp 
++ Application Load Balancer - new generation(v2)
+  + Micro services & container-based application에 적합
+  + http, https, websocket
++ Network Load Balancer - new generation(v2)
+  + one static IP per AZ
+  + extreme performance
+  + tcp, TLS&UDP
 
 
 
+<br>
+
+## Health Check
+
+health check는 load balancer에서 중요
+
+<br>
+
+## Cross-Zone Load Balancing
+
+Classic, Application - no charge
+
+Network - pay charge
+
+<br>
+
+## SSL/TLS
+
+중요한 정보를 교환할 때 사용
+
+요즘은 TLS를 주로 사용
 
 
 
