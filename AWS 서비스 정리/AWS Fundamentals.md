@@ -104,5 +104,39 @@ Burstable Instances (T2/T3)
 
 custom하여 사용도 가능
 
+AMI는 특정 AWS 리전에서 적합하다.
+
+<br>
+
+## AMI Storage
+
+AMI는 **S3**에서 존재
+
+<br>
+
+## Placement Groups
+
+EC2 인스턴스 배치 전략
+
++ Cluster
+  + 단일 가용 영역 내에 있는 인스턴스의 논리적 그룹
+    + 장점 : 내트워크가 좋음
+    + 단점 : 만약 한 인스턴스가 fail하면 모든 인스턴스가 동시에 fail
+    + 사용 - 빅데이터를 빨리 처리해야할 때, low latency와 high network throught가 필요할 때
++ Spread
+  + 소규모의 인스턴스 그룹을 다른 하드웨어롤 분산 (상호 관련 오류 낮음)
+    + 장점 : 인스턴스 그룹 내 장애 확률 낮음.
+    + 단점 : 각 az에 7개의 인스턴스로 제한
+    + 사용 - 인스턴스 각각의 fail에 고립되어야 할때
++ Partition
+  + 인스턴스를 논리적 파티션에 분산
+  + 하나의 AZ에 7개 파티션
+  + 파티션끼리의 인스턴스는 서로 공유하지 않는다.
+    + 사용 - Kafka, hdfs
+
+<br>
+
+
+
 
 
