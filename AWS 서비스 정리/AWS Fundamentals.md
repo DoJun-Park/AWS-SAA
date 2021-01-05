@@ -196,6 +196,40 @@ Network - pay charge
 
 요즘은 TLS를 주로 사용
 
+<br>
+
+## SSL - Server Name Indication (SNI)
+
+다중의 SSL 인증서가 하나의 서버에 로드될 때의 문제점을 해결
+
+클라이언트가 어느 호스트명에 접속하려는지 서버에 알리는 역할
+
+ALB와 NLB와만 동작, CLB와는 동작하지 않는다
+
+<br>
+
+## ELB - Connection Draining
+
+사용자의 요청을 처리 중인 EC2 인스턴스를 바로 삭제하지 못하도록 방지하는 기능
+
+지정한 시간만큼 기다림
+
+<br>
+
+## Auto Scaling Group
+
+goal of an ASG
+
++ Scale out - increased load
++ Scale in - decreased load
++ 자동적으로 새로운 인스턴스를 로드밸런서에 등록
+
+<br>
+
+
+
+
+
 
 
 
