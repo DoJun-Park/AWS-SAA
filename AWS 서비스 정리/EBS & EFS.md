@@ -32,7 +32,7 @@ encrypted volumed의 스냅샷은 encrypted되어져 있다.
 
 Instance store은 physically attach되어진다.
 
-+ 높은 IOPS(physical이기 때문에)
++ 매우 높은 IOPS (physical이기 때문에)
 + Block Storage
 + data loss에 대한 리스크 존재
 
