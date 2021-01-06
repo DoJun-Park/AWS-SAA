@@ -134,13 +134,65 @@ Aurora Global Database
 
 <br>
 
+## Amazon ElastiCache
 
+클라우드에서 인 메모리 데이터 스토어 또는 캐시를 손쉽게 배포,운영 및 확장할 수 있게 해주는 웹 서비스
 
+<br>
 
+## ElastiCache Solution Architecture - User Session Store
 
+애플리케이션은 세션 데이터를 ElastiCache에 적고, hit가 되면 세션 데이터를 가져온다.
 
+<br>
 
- 
+## ElastiCache - Redis vs Memcached
+
++ Redis
+  + `Master - Slave` 구조로 여러개의 복제본을 만들  수 있다.
+  + 데이터베이스 읽기를 확장할 수 있기 때문에 높은 가용성 클러터 제공
+  + 백업과 복구 특성을 가지고 있다.
++ Memcached
+  + `멀티스레드`를 지원하기 때문에, `멀티프로세스코어`를 사용할 수 있다.
+  + 데이터를 파티셔닝하여 저장하는 기술(sharding)
+  + Non persistent
+  + 백업과 복구 특성이 없다.
+
+<br>
+
+## ElastiCache - Cache Security
+
+모든 캐시는 ElastiCache에 있다.
+
++ SSL in flight encryption 지원
++ **IAM authentication** 지원하지 않음
++ ElastiCache에서 **IAM authentication**은 AWS API-level 보안에서 사용된다.
+
+Redis AUTH
+
++ Password/token
+
+Memcached
+
++ SASL-based authentication
+
+<br>
+
+## ElastiCache for Solutions Architects
+
++ Patterns for ElastiCache
+
+  + Lazy Loading : 페이지를 읽어들이는 시점에 중요하지 않은 리소스 로딩을 추후에 하는 기술
+
+    1) 캐시 miss가 발생
+
+    2) db로부터 read
+
+    3) cache에 write
+
+  + Write Through : CPU가 데이터를 사용하면 캐시에 저장되게 되는데, 데이터가 캐시 됨과 동시에 주기억장치 또는 디스크로 기입되는 방식을 지원하는 구조의 캐시
+
+  + Session Store : 캐시에 일시적인 session data를 저장
 
 
 
