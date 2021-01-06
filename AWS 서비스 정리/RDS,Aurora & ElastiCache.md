@@ -44,7 +44,7 @@ Not used for scaling
 
 Transparent Data Encryption(TDE) : 응용프로그램의 수정 없이 DB 내부에서 암호화 진행
 
-+ oracle과 sql server에서 가능
++ **oracle**과 **sql server**에서 가능
 
 In-flight encryption - client에서 나의 db로 데이터가 보내질 때 encryption
 
