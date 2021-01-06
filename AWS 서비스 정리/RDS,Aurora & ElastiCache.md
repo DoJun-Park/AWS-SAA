@@ -69,6 +69,70 @@ MySQL, PostgreSQL에서 동작
 
 &#8251;  No SSH access, only allow SSL connection
 
+<br>
+
+## Amazon Aurora
+
+MySQL 및 PostgreSQL과 호환되는 완전 관리형 관계형 데이터베이스 엔진
+
+RDS보다 20%비싸지만 더 효율적이다.
+
+
+
+One Aurora instance takes writes(master)
+
+master의 Automated failover는 30초 이내이다
+
+나머지는 read
+
+Cross Region Replication을 지원한다.
+
+-> default로 하나의 master, 다중의 read replicas 그리고 그들의 storage는 replicated+self healing+auto expanding
+
+
+
+<br>
+
+Aurora DB Cluster
+
++ Writer Endpoint
++ Reader Endpoint
+  + 자동적으로 모든 Read Replica들과 연결한다
+  + load balancing과 연결을 도와준다, (로드 밸런싱은 connection level에서 동작)
+
+<br>
+
+## Aurora Security
+
+(= RDS Security)
+
+KMS를 이용해 암호화
+
+SSL을 통한 데이터 이동 중 암호화
+
+IAM token을 통한 인증 가능
+
+can't SSH
+
+<br>
+
+## Aurora Serverless
+
+자동화된 database 인스턴스화 그리고 실제 사용에 기반한 auto-scaling
+
+&#8251; &#8251; **infrequent, intermittent, unpredictable workloads**에 적합 (이와 같은 키워드 나오면 Aurora Serverless 생각)
+
+<br>
+
+## Global Aurora
+
+Aurora Global Database
+
++ 1 primary Region (Read/Write)
++ 최대 5개의 secondary region
++ 하나의 secondary region에 16개 read replicas
+
+<br>
 
 
 
@@ -76,10 +140,7 @@ MySQL, PostgreSQL에서 동작
 
 
 
-
-
-
-
+ 
 
 
 
