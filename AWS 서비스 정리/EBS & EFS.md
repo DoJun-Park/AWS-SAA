@@ -30,13 +30,13 @@ encrypted volumed의 스냅샷은 encrypted되어져 있다.
 
 ## EBS vs Instance Store
 
-Instance store은 physically attach되어진다.
+**Instance store**은 physically attach되어진다.
 
 + 매우 높은 IOPS (physical이기 때문에)
 + Block Storage
 + data loss에 대한 리스크 존재
 
-EBS는 network drive 
+**EBS**는 network drive 
 
 -> 데이터를 잃어도 상관없고 데이터가 일시적이면 Instance Store
 
