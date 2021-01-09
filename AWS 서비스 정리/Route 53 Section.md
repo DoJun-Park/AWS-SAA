@@ -1,9 +1,9 @@
 ## CNAME vs Alias
 
 + CNAME : Canonical Name의 약자로 도메인 주소를 또 다른 도메인 주소로 매칭시키는 형태의 DNS 레코드 타입
-  + Non root domain
+  + name에 다른 record가 있으면 안됨, 오직 non root domain만 가능
 + Alias : 도메인 주소를 AWS Resource로 매칭시키는 형태
-  + root domain, Non root domain
+  + name에 다른 record가 있어도 가능. root domain, Non root domain 둘다 가능
 
 <br>
 
