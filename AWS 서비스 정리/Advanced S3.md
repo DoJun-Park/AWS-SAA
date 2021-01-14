@@ -88,10 +88,18 @@ CloudFront는 AWS 백본 네트워크를 통해 콘텐츠를 가장 효과적으
 
 ## CloudFront Signed URL / Signed Cookies
 
-+ Signed URL = access to individual files
-+ Signed Cookies = access to multiple files
+S3에서 유료 컨텐츠를 안전하게 배포할 수 있는 기능
+
++ Signed URL = access to **individual** files
++ Signed Cookies = access to **multiple** files
 
  <br>
+
+## AWS Global Accelerator
+
+aws 내부 네트워크를 활용하여 애플리케이션으로 라우팅
+
+**2개의 static ip** 제공
 
 ## Snowball
 
