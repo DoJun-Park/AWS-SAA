@@ -26,6 +26,12 @@ origin bucket에서 삭제한 것은 복제된 bucket에 영향을 주지 않는
 
 <br>
 
+## S3 Performance - S3 Byte-Range Fetches
+
+특정 Byte range로 병렬적으로 GET 요청
+
+<br>
+
 ## S3 Storage Classes
 
 + Amazon S3 Standard - General Purpose
