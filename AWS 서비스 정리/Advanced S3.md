@@ -101,11 +101,21 @@ aws 내부 네트워크를 활용하여 애플리케이션으로 라우팅
 
 **2개의 static ip** 제공
 
+<br>
+
 ## Snowball
 
 대용량 데이터를 송수신하는 페타바이트 규모의 physical data transport 솔루션
 
 <br>
+
+## Snowball Edge
+
+일부 AWS 기능을 위해 온보드 스토리지와 컴퓨팅 파워를 제공하는 Snowball 디바이스 유형
+
+snowball 엣지는 로컬 환경과 AWS 클라우드 간의 데이터 전송 외에도 로컬 처리 및 엣지 컴퓨팅 워크로드를 수행할 수 있다.
+
+스노우볼에서 데이터를 이동하는 동안 데이터를 전처리하기에 유용하다.
 
 ## AWS Storage Gateway
 
