@@ -53,11 +53,41 @@ queue에 FIFO으로 메시지 쌓임
 
 SNS(Simple Notification Service) : 게시자가 구독자에게 메시지를 전송하는 관리형 서비스
 
-냐ㅡㅔㄷ ㅜnoti
+<br>
 
+## AWS Kinesis
 
+데이터 수집구간과 데이터 처리구간 중간에 위치하여 스트리밍 데이터를 처리한다.
 
+Kinesis는 아파치 카프카의 관리된 대안책이다.
 
+실시간 빅데이터에 좋다.
+
+<br>
+
+## Kinesis Streams
+
+Streams는 정렬된 shard/partition으로 나눠진다.
+
+데이터를 재처리할 수 있다. (<-> SQS는 데이터 한번 소비되면 끝)
+
+Real-time processing
+
+데이터는 1일에서 최대 7일까지 유지하고, 한번 삽입되면 삭제될 수 없다.
+
+<br>
+
+## Kinesis Streams Shards
+
+하나의 스트림은 여러 다른 shard들로 이뤄져있다.
+
+<br>
+
+## AWS Kinesis API - Consumers
+
+consumer는 Kinesis Client Library를 이용하여 효율적으로 사용가능하다.
+
+<br>
 
 
 
