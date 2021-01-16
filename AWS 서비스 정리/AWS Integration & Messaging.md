@@ -69,11 +69,17 @@ Kinesis는 아파치 카프카의 관리된 대안책이다.
 
 Streams는 정렬된 shard/partition으로 나눠진다.
 
+각 shard는 1MB/s incoming이 가능하고, 2MB/s outgoing이 가능하다. 
+
+<u>만약 kinesis stream에서 트래픽이 증가하면 shard를 추가하면 됨.</u>
+
 데이터를 재처리할 수 있다. (<-> SQS는 데이터 한번 소비되면 끝)
 
 Real-time processing
 
 데이터는 1일에서 최대 7일까지 유지하고, 한번 삽입되면 삭제될 수 없다.
+
+
 
 <br>
 
