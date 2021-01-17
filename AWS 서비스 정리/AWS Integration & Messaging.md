@@ -63,6 +63,11 @@ Kinesis는 아파치 카프카의 관리된 대안책이다.
 
 실시간 빅데이터에 좋다.
 
++ 종류
+  + Kinesis Streams : 기본적인 스트리밍 큐
+  + Kinesis FireHose : Streams + delivery stream(deliver to S3, Redshift and ElasticSearch)
+  + Kinesis Analytics : Streams + application(analysis by SQL)
+
 <br>
 
 ## Kinesis Streams
@@ -94,8 +99,6 @@ Real-time processing
 consumer는 Kinesis Client Library를 이용하여 효율적으로 사용가능하다.
 
 <br>
-
-
 
 
 
