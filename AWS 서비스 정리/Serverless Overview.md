@@ -22,7 +22,9 @@ DynamoDB는 **테이블**로 만들어졌고, 각 테이블은 PK를 가지고 �
 
 ## DynamoDB - Provisioned Throughput
 
-테이블은 read/write capacity unit을 제공해야 한다.
+DynamoDB는 serverless 서비스이므로 db에 대한 인스턴스 유형을 프로비저닝하지 않는다.
+
+테이블에 얼마나 많은 RCU와 WCU(read/write Capacity Unit)가 필요한지 정하기만 하면 된다.
 
 + Read Capacity Units (RCU) : read 처리율
 + Write Capacity Units (WCU) : write 처리율
@@ -82,11 +84,27 @@ cognito는 authentication(인증)만 지원, authorization(권한)은 지원하�
   + 자신의 사용자 풀을 관리 (Facebook, google 등)
   + authentication만 실행
 
+<br>
 
+## AWS Cognito
 
+웹과 모바일 앱에 대한 인증, 권한 부여 및 사용자 관리를 제공하는 서비스
 
+<br>
 
+## AWS Cognito User Pools (CUP)
 
+모바일 앱을 위해 serverless database추가
 
+가입 및 로그인에 자세한 제어 가능
 
+Federated Identities로 가능
+
+Authentication을 위해 API Gateway와 통합될 수 있다.
+
+<br>
+
+## AWS Cognito - Federated Identity Pools
+
+client가 기타 AWS 서비스에 대한 액세스 권한 부여(Facebook, google, CUP 등)
 
