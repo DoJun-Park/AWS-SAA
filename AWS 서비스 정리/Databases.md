@@ -9,10 +9,11 @@
 ## Aurora Overview
 
 + PostgreSQL/MySQL과 API 호환 가능
-
 + Auto healing capability(replica 하나 잃으면 자동으로 복구)
 + "Aurora Serverless" 옵션
++ perform OLTP
 + pay per hour
++ Use case : same as RDS, but less maintenance/more flexibility/more performance
 
 <br>
 
