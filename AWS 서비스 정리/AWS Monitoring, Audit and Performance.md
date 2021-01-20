@@ -4,6 +4,8 @@ CloudWatch는 AWS 리소스와 AWS에서 실시간으로 진행중인 애플리�
 
 Metric(지표)은 모니터링할 변수
 
+⭐ High Resolution : 1 second
+
 <br>
 
 ## CloudWatch Dashboards
@@ -48,6 +50,8 @@ CloudTrail은 디폴트로 사용가능
 aws 리소스에 제한되고 일시적인 접근할 수 있는 보안 자격 증명을 부여
 
 Token은 1시간동안 유효
+
+다른 계정에서 액세스 가능(<-> access key는 다른 계정에서 안됨)
 
 <br>
 
