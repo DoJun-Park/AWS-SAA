@@ -19,6 +19,8 @@ region 마다 최대 5개 VPC 가질 수 있다.
 
 VPC CIDR는 다른 네트워크과 overlap되면 안된다.
 
+AWS에서 max CIDR는 /16이다. 
+
 <br>
 
 ## Subnets - IPv4 
@@ -111,7 +113,7 @@ Ex) 규칙 #100 -> ALLOW,  asterisk(*) -> DENY
 
 VPC Peering은 transitive하지 않다. 만약 a와 b가 연결되어 있고 b와 c가 연결되어 있다고 해서 a와 c가 연결되는 것은 아니다. 통신이 필요한 VPC끼리 각각 설치되어야 한다.
 
-VPC Peering 연결 이후에 각 VPC간 실제 통신을 하기 위해서는 AWS 콘솔의 VPC의 Route Table에서 별도의 설정이 필요하다.
+VPC Peering 연결 이후에 각 VPC간 실제 통신을 하기 위해서는 **각각 VPC의 Route Table**에서 별도의 설정이 필요하다.
 
 <br>
 
@@ -170,8 +172,6 @@ Direct connect를 하나 이상의 다른 region의 VPC들과 연결하려 할 �
 
 <br>
 
-
-
 ## Direct Connect - Connection Types
 
 + Dedicated Connections
@@ -187,13 +187,13 @@ transit에 있는 데이터는 encrypted 되지 않지만 private
 
 <br>
 
-## Egress Only Internet Gateway
+## Egress(outgoing) Only Internet Gateway
 
 IPv6에서만 가능한 Internet Gateway이다.(IPv6는 모든 주소가 public)
 
 IPv4에서는 NAT
 
-Egress Only Internet Gateway는 IPv6 인스턴스가 인터넷에는 접근할 수 있지만, 인터넷에서는 직접 접근할 수 없도록
+Egress Only Internet Gateway는 IPv6 인스턴스가 인터넷에는 접근할 수 있지만, 인터넷에서는 직접 접근할 수 없다.
 
 Route table 편집해야 한다.
 
@@ -201,15 +201,19 @@ Route table 편집해야 한다.
 
 ## VPC를 다른 VPC에 노출시키는 방법
 
-1. public으로 만들기
-2. VPC peering
-3. AWS PrivateLink
+옵션 1. public으로 만들기
+
+옵션 2. VPC peering
+
+옵션 3. AWS PrivateLink
+
++ network load balancer와 ENI(Elastic Network Interface) 필요
 
 <br>
 
 ## AWS PrivateLink
 
-Network load balancer(Service VPC)와 Elastic Network Interface(Customer VPC)가 요구
+Network load balancer(Service VPC)와 Elastic Network Interface(Customer VPC)가 필요
 
 <br>
 
@@ -221,41 +225,8 @@ VPC와 함께 또는 VPC 없이 사용할 수 있는 간단한 허브 앤 스포
 
 ## Transit Gateway
 
-고객이 자신의 Amazon VPC와 온프레미스 네트워크를 단일 게이트웨이에 견결할 수 있도록 지원해 주는 서비스
+고객이 자신의 Amazon VPC와 온프레미스 네트워크를 단일 게이트웨이에 연결할 수 있도록 지원해 주는 서비스
 
 [추가 내용 참고](https://dev.classmethod.jp/articles/different-from-vpc-peering-and-transit-gateway/)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
