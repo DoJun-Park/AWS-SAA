@@ -23,9 +23,7 @@ VPC CIDR는 다른 네트워크과 overlap되면 안된다.
 
 ## Subnets - IPv4 
 
-AWS는 각각의 subnet에 5개의 IP주소를 예약하고 있다.
-
-때문에 만약 subnet을 생성하면 가능한 IP가 5개 빼고 보여짐.
+AWS는 각각의 subnet에 5개의 IP주소를 임의로 예약하고 있다. 때문에 만약 subnet을 생성하면 가능한 IP가 5개 빼고 보여짐.
 
 ⭐  만약 EC2 인스턴스에서 29개의 IP 주소가 필요하다면 subnet size는 몇이 되어야 할까?
 
@@ -35,11 +33,11 @@ AWS는 각각의 subnet에 5개의 IP주소를 예약하고 있다.
 
 ## Internet Gateways
 
-Internet Gateways는 VPC 인스턴스들이 인터넷과 연결하는 것을 도와준다.
+**Internet Gateways**는 <u>VPC 인스턴스들이 인터넷과 연결</u>하는 것을 도와준다.
 
 하나의 VPC에 하나의 IGW가 할당됨.
 
-Route table도 설정되어야 한다.
+security group에서 Route table 설정!!
 
 <br>
 
@@ -47,7 +45,7 @@ Route table도 설정되어야 한다.
 
 Private subnet에 있는 인스턴스들을 internet에 연결하게 해준다.
 
-NAT는 public에서 시작되어야 한다.
+NAT는 **public**에서 시작되어야 한다.
 
 <br>
 
@@ -102,7 +100,7 @@ Ex) 규칙 #100 -> ALLOW,  asterisk(*) -> DENY
 
 둘의 차이점
 
-+ ACL은 Request/Response 모두에 관여하며 다른 서브넷 및 외부에서 들어오거나 나가는 요청/응답에 관여.
++ ACL(Access Control List)은 Request/Response 모두에 관여하며 다른 서브넷 및 외부에서 들어오거나 나가는 요청/응답에 관여.
 + Security Group은 Request에만 관여하며 같은 서브넷, 다른 서브넷 및 외부에서 들어오는 요청의 수신/발신에 관여
 
 <br>
@@ -111,7 +109,7 @@ Ex) 규칙 #100 -> ALLOW,  asterisk(*) -> DENY
 
 서로 다른 VPC간 통신이 가능하도록 연결하는 것
 
-VPC Peering은 transitive하지 않다. 만약 a와 b가 연결되어 있고 b와 c가 연결되어 있다고 해서 a와 c가 연결되는 것은 아니다.
+VPC Peering은 transitive하지 않다. 만약 a와 b가 연결되어 있고 b와 c가 연결되어 있다고 해서 a와 c가 연결되는 것은 아니다. 통신이 필요한 VPC끼리 각각 설치되어야 한다.
 
 VPC Peering 연결 이후에 각 VPC간 실제 통신을 하기 위해서는 AWS 콘솔의 VPC의 Route Table에서 별도의 설정이 필요하다.
 
@@ -120,8 +118,6 @@ VPC Peering 연결 이후에 각 VPC간 실제 통신을 하기 위해서는 AWS
 ## VPC Endpoint
 
 VPC Endpoint는 가상 장치로 VPC와 AWS 서비스를 private connection할 수 있도록 한다. 예를 들어 인스턴스에서 S3에 엑세스 할 때, 인터넷 게이트웨이나 NAT등이 필요 없이 VPC Endpoint로 가능하다.
-
-
 
 <br>
 
@@ -156,8 +152,6 @@ Flow logs는 S3와 CloudWatch Logs로 갈 수 있다.
 
 위의 둘을 연결하는 것이 VPN Connection
 
-
-
 <br>
 
 ## Direct Connect
@@ -165,8 +159,6 @@ Flow logs는 S3와 CloudWatch Logs로 갈 수 있다.
 온프레미스에서 AWS로 전용(private) 네트워크 연결을 쉽게 설정할 수 있는 서비스
 
 IPv4와 IPv6 지원
-
-
 
 <br>
 
@@ -185,9 +177,7 @@ Direct connect를 하나 이상의 다른 region의 VPC들과 연결하려 할 �
 + Dedicated Connections
   + physical ethernet port를 제공받아서 사용해야 하므로 시간이 거릴 수 있다.
 + Hosted Connections
-  + 용량을 추가되거나 줄일 수 있다.
-
-
+  + 용량을 추가하거나 줄일 수 있다.
 
 <br>
 
