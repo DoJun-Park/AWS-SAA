@@ -61,7 +61,7 @@ Primary Site의 db는 주기적으로 AWS로 복제되며 Web Server, App Server
 
 많은 양의 데이터를 온프레미스에서 AWS로 옮기는 서비스
 
-
+ 
 
 
 
