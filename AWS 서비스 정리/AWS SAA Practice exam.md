@@ -66,5 +66,38 @@ Amazon Glue는 고객이 분석을 위해 데이터를 쉽게 준비하고 로�
 
 <br>
 
+## Application Load Balancer
+
+Application Load Balancer는 들어오는 애플리케이션 트래픽을 EC2 인스턴스, 컨테이너, IP 주소 및 람다 기능과 같은 여러 대상에 자동으로 분산시킬 수 있다. 
+
+만약 application이 여러 개별 서비스로 구성된 경우 Application Load Balancer는 요청 내용에 따라 요청을 서비스로 라우팅할 수 있다.
+
++ 호스트 기반 라우팅 : 동일한 로드 밸런서에서 여러 도메인으로 라우팅할 수 있도록 HTTP 헤더의 호스트 필드를 기반으로 클라이언트 요청을 라우팅할 수 있다.
++ 경로 기반 라우팅 : HTTP 헤더의 URL 경로를 기준으로 클라이언트 요청을 라우팅할 수 있다.
+
+<br>
+
+## Network Load Balancer
+
+Network Load Balancer는 지연 시간이 짧고 초당 수백만 건의 요청으로 확장되는 높은 처리량 워크로드를 포함하는 사례에 적합
+
+Network Load Balancer는 **IP프로토콜 데이터**를 기반으로 Amazon VPC내의 대상에 대한 연결을 라우팅
+
+<br>
+
+## Classic Load Balancer
+
+Classic Load Balancer는 여러 Amazon EC2 인스턴스 간에 기본 로드 밸런싱을 제공하며 요청과 연결 level 모두 작동
+
+## NGINX based load balancer
+
+NGINX는 많은 configuration 작업이 필요하다. 그래서 EC2에 NGINX 로드 밸런서를 구축하면 작동하지만 관리 및 확장 문제가 발생한다.
+
+<br>
+
+
+
+
+
 
 
