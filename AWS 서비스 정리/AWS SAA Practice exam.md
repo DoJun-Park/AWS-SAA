@@ -101,6 +101,8 @@ Network Load Balancer는 지연 시간이 짧고 초당 수백만 건의 요청�
 
 Network Load Balancer는 **IP프로토콜 데이터**를 기반으로 Amazon VPC내의 대상에 대한 연결을 라우팅
 
+Network Load Balancer에서 인스턴스 ID를 사용하여 대상을 지정할 경우 트래픽은 인스턴스의 primary 네트워크 인터페이스에 지정된 primary **private** IP 주소를 사용하여 인스턴스로 라우팅된다. (트래픽을 인스턴스로 라우팅하는데 public IP 주소를 사용할 수 없다.)
+
 <br>
 
 ## Classic Load Balancer
@@ -170,7 +172,7 @@ transit gateway는 VPC를 상호 연결하거나 VPC를 **사내 네트워크**�
 
 ## Redshift Spectrum
 
-Redshift Spectrum는 대규모 데이터set 저장 및 분석을 위해 설계된 페타바이트 규모의 클라우드 기반 데이터 웨어하우스 제품이다.
+Redshift Spectrum는 대규모 데이터set 저장 및 분석을 위해 설계된 <u>페타바이트</u> 규모의 클라우드 기반 데이터 웨어하우스 제품이다.
 
 Redshift Spectrum을 사용하면 데이터를 Amazon Redshift 테이블에 로드할 필요 없이 S3의 파일에서  구조화 및 반부조화된 데이터를 효율적으로 쿼리하고 검색할 수 있다.
 
@@ -190,7 +192,41 @@ Amazon API Gateway는 계정의 모든 API에 대한 정상 상태 속도 및 �
 
 <br>
 
+## VPC Sharing
 
+VPC Sharing을 통해 여러 AWS 계정이 EC2 인스턴스, RDS 인스턴스, Redshift 클러스터 및 람다 함수와 같은 애플리케이션 리소스를 고유 및 중앙 관리되는 VPC로 생성할 수 있다. 이 설정을 위해 VPC를 소유하는 계정은 AWS Organization의 동일한 조직에 속한 다른 계정과 하나 이상의 서브넷을 공유한다. 서브넷이 공유되면 참가자는 공유된 서브넷에서 응용 프로그램 리소스를 보거나 수정 또는 삭제할 수 있다.
+
+주의할 점은 <u>소유자 계정은 VPC 자체를 공유할 수는 없고 **서브넷**을 통해 공유해야 한다.</u>
+
+<br>
+
+## AWS credentials on the EC2
+
+EC2 인스턴스에서 AWS 자격 증명을 유지하는 것은 잘못된 보안 관행이다. 대신 IAM role을 사용하여 EC2 인스턴스에서 실행되는 응용 프로그램의 임시 자격 증명을 관리한다. 이 role은 응용 프로그램이 다른 AWS 리소스를 호출할 때 사용할 수 있는 임시 사용 권한을 제공한다.
+
+<br>
+
+## Auto Scaling group lifecycle hook
+
+Auto Scaling group lifecycle hook를 사용하면 auto scaling 그룹이 인스턴스를 시작하거나 종료할 때 사용자 지정 작업을 수행할 수 있다.
+
+<br>
+
+## lifecycle hook
+
+lifecycle hook을 사용하면 auto scaling 그룹이 인스턴스를 시작하거나 종료할 때 인스턴스를 일시 중지하여 사용자 지정 작업을 수행할 수 있다.
+
+<br>
+
+## EC2 instance meta data
+
+EC2 instance meta data는 실행 중인 인스턴스를 구성하거나 관리하는데 사용할 수 있는 인스턴스에 대한 데이터이다.
+
+<br>
+
+## EC2 instance user data
+
+EC2 instance user data는 인스턴스를 시작할 때 구성 스크립트 형식으로 지정한 데이터이다.
 
 
 
