@@ -93,6 +93,8 @@ Application Load Balancer는 들어오는 애플리케이션 트래픽을 EC2 �
 
 ALB는 HTTP 및 HTTPS 트래픽의 로드 밸런싱에 가장 적합하며 microservice 및 container를 포함한 최신 애플리케이션 아키텍처의 제공을 목표로 하는 advanced request routing을 제공한다.
 
+Cross-Zone Load Balancing이 가능하다.
+
 <br>
 
 ## Network Load Balancer
@@ -102,6 +104,8 @@ Network Load Balancer는 지연 시간이 짧고 초당 수백만 건의 요청�
 Network Load Balancer는 **IP프로토콜 데이터**를 기반으로 Amazon VPC내의 대상에 대한 연결을 라우팅
 
 Network Load Balancer에서 인스턴스 ID를 사용하여 대상을 지정할 경우 트래픽은 인스턴스의 primary 네트워크 인터페이스에 지정된 primary **private** IP 주소를 사용하여 인스턴스로 라우팅된다. (트래픽을 인스턴스로 라우팅하는데 public IP 주소를 사용할 수 없다.)
+
+Cross-Zone Load Balancing이 불가능하다.
 
 <br>
 
@@ -228,7 +232,79 @@ EC2 instance meta data는 실행 중인 인스턴스를 구성하거나 관리�
 
 EC2 instance user data는 인스턴스를 시작할 때 구성 스크립트 형식으로 지정한 데이터이다.
 
+<br>
 
+## Access Control Lists (ACLs)
 
+S3에서는 ACL을 사용하여 버킷이나 개체에 대해 읽기 또는 쓰기 액세스 권한을 사용자 그룹에 부여할 수 있다. ACL을 사용하면 Amazon S3 리소스에 대한 다른 <u>AWS 계정(특정 user는 안됨) 액세스 권한</u>만 부여할 수 있다.
 
+<br>
+
+## Identity and Access Management (IAM)
+
+AWS IAM은 직원이 많은 조직에서 단일 AWS 계정으로 여러 사용자를 생성하고 관리할 수 있도록 지원한다. 
+
+IAM policy는 사용자에게 연겨되어 AWS 계정 아래의 사용자가 버킷 또는 개체에 액세스할 수 있는 권한을 중앙 집중식으로 제어할 수 있다. IAM 정책을 사용하면 <u>자신의 AWS 계정 내</u>의 사용자에게만 Amazon S3 리소스에 액세스 할 수 있는 권한을 부여할 수 있다.
+
++ full admininstratorAccess
+
+  full admininstratorAccess를 가진 IAM 사용자는 루트 계정 사용자에게만 지정된 몇 가지 작업을 제외한 거의 모든 AWS 작업을 수행할 수 있다. 루트 계정 사용자만 수행할 수 있는 AWS 태스크 중 일부는 아래와 같다.
+
+  + change account name or root password or root email address, change AWS support plan, close AWS account, enable MFA on S3 bucket delete, create Cloudfront key pair, register for GovCloud
+
+<br>
+
+## Cluster placement group
+
+Cluster placement group은 단일 가용성 영역 내의 인스턴스의 논리적 그룹이다. 
+
+Cluster placement groups는 네트워크 지연 시간이 짧거나 네트워크 처리량이 높은 이점을 제공하는 애플리케이션에 권장된다.
+
+<br>
+
+## Spot Instance
+
+Spot Instance는 가장 저렴한 인스턴스로 장애에 대해 복원력이 뛰어난 워크로드에 유용하다.
+
+Spot Instance는 중요한 작업(critical job) 또는 database에 적합하지 않다.
+
+<br>
+
+## FIFO queue
+
+FIFO queue는 일괄 처리(batching)를 통해 최대 초당 3000개의 메시지를 지원하고, 일괄 처리 없이는 초당 300개의 메시지를 지원한다.
+
+FIFO queue의 이름은 .fifo 접미사로 끝나야 한다.
+
+## NAT 
+
+NAT는 Public Subnet에 있어 private subnet의 인스턴스가 인터넷에 연결되도록 한다.
+
+<br>
+
+## AWS WAF - Web Application Firewall
+
+AWS WAF는 웹 요청을 모니터링하고 악의적인 요청으로부터 웹 애플리케이션을 보호할 수 있는 웹 애플리케이션 방화벽 서비스이다.
+
+AWS WAF는 Application Load balancer, API Gateway, CloudFront에 배치되어 사용될 수 있다.
+
+Application Load balancer와 함께 사용될 경우 ACL의 규칙에 따라 요청을 허용하거나 차단할 수 있고, 지리적(geo) 일치 조건을 사용하면 뷰어의 지리적 위치에 따라 애플리케이션 액세스를 제한할 수 있다.
+
+<br>
+
+## Snowball Edge
+
+Snowball Edge에 정장된 데이터는 S3 버킷에 복사되고 나중에 라이프사이클 정책을 통해 AWS Glacier로 전환될 수 있다.
+
+Snowball Edge의 데이터를 AWS Glacier로 직접 복사할 수는 없다.
+
+<br>
+
+## AWS CloudTrail
+
+AWS CloudTrail은 AWS 계정의 거버넌스, 규정 준수, 운영 감사 및 리스크 감사를 지원하는 서비스이다.
+
+AWS CloudTrail을 사용하면 AWS 인프라 전반의 작업과 관련된 계정 활동을 기록, 지속적으로 모니터링 및 유지할 수 있다.
+
+<br>
 
