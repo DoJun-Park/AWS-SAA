@@ -86,7 +86,7 @@ Amazon Glue는 고객이 분석을 위해 데이터를 쉽게 준비하고 로�
 
 Application Load Balancer는 들어오는 애플리케이션 트래픽을 EC2 인스턴스, 컨테이너, IP 주소 및 람다 기능과 같은 여러 대상에 자동으로 분산시킬 수 있다. 
 
-만약 application이 여러 개별 서비스로 구성된 경우 Application Load Balancer는 **content-based**(요청 내용에 따라) 요청을 서비스로 라우팅할 수 있다.
+만약 application이 여러 개별 서비스로 구성된 경우 Application Load Balancer는 ⭐**content-based**(요청 내용에 따라) 요청을 서비스로 라우팅할 수 있다.
 
 + 호스트 기반 라우팅 : 동일한 로드 밸런서에서 여러 도메인으로 라우팅할 수 있도록 HTTP 헤더의 호스트 필드를 기반으로 클라이언트 요청을 라우팅할 수 있다.
 + 경로 기반 라우팅 : HTTP 헤더의 URL 경로를 기준으로 클라이언트 요청을 라우팅할 수 있다.
@@ -276,9 +276,19 @@ FIFO queue는 일괄 처리(batching)를 통해 최대 초당 3000개의 메시�
 
 FIFO queue의 이름은 .fifo 접미사로 끝나야 한다.
 
+<br>
+
 ## NAT 
 
 NAT는 Public Subnet에 있어 private subnet의 인스턴스가 인터넷에 연결되도록 한다.
+
+### NAT Instance vs NAT gateway
+
+NAT Instance는 Security group와 연결할 수 있다.  Vs NAT gateway는 Security group와 연결할 수 없다.
+
+NAT Instance는 port forwarding을 지원한다. Vs NAT gateway는 Security group을 지원하지 않는다.
+
+NAT Instance는 bastian server처럼 사용될 수 있다. Vs NAT gateway는 bastian server처럼 사용될 수 없다. 
 
 <br>
 
@@ -307,4 +317,102 @@ AWS CloudTrail은 AWS 계정의 거버넌스, 규정 준수, 운영 감사 및 �
 AWS CloudTrail을 사용하면 AWS 인프라 전반의 작업과 관련된 계정 활동을 기록, 지속적으로 모니터링 및 유지할 수 있다.
 
 <br>
+
+## Amazon Aurora
+
+Amazon Aurora는 MySQL과 Postgre과 호환되는 완전 관리형  **관계형 데이터베이스** 엔진이다. 
+
+<br>
+
+## Amazon Aurora Global Database
+
+Amazon Aurora Global Database는 전 세계적으로 분산된 애플리케이션을 위해 설계되었으며, 단일 Amazon Aurora 데이터베이스가 여러 AWS 영역에 걸쳐 있을 수 있게 된다. 데이터베이스 성능에 영향을 주지 않고 데이터를 복제하고, 각 지역에서 대기 시간이 짧고 빠른 읽기를 가능하게 하며, 지역 전체의 운영 중단으로부터 재해 복구를 제공한다.
+
+<br>
+
+## Golden AMI
+
+Golden AMI는 configuration(구성), 일관된 보안 패치 및 hardening(강화)를 통해 표준화하는 AMI이다. 또한 로그, 보안, 성능 모니터링 등에 대해 승인한 에이전트도 포함되어 있다. 
+
+<br>
+
+## Lambda
+
+AWS Lambda를 사용하면 서버를 프로비저닝하거나 관리하지 않고도 코드를 실행할 수 있다. 사용하는 컴퓨팅 시간에만 비용을 지불하면 되기 때문에 코드가 실행되지 않을 때는 비용이 들지 않는다.
+
+AWS Lambda를 DynamoDB와 결합하여 IoT 소스에서 키 값 데이터를 처리하고 캡쳐할 수 있다.
+
+<br>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
