@@ -50,9 +50,27 @@ AWS Global Accelerator는 로컬 또는 글로벌 사용자와 함께 애플리�
 
 <br>
 
+## CloudFront
+
+CloudFront는 CDN(Content Delivery Network) 서비스로, 안전하고 확장 가능한 정적 및 동적 웹 컨텐츠, 비디오 스트림 및 API를 전 세계에 제공한다.
+
+CloudFront는 Edge Locations에서 콘텐츠를 캐싱함으로써 S3 버킷에 대한 로드를 줄이고 사용자가 콘텐츠를 요청할 때 빠르게 응답할 수 있도록 지원한다. S3에서 CloudFront까지 데이터 전송 수수료는 발생하지 않는다.
+
+<br>
+
+## AWS Global Accelerator vs CloudFront
+
+AWS Global Accelerator와 CloudFront는 AWS 글로벌 네트워크와  전 세계 엣지 위치를 사용하는 별도의 서비스이다. 
+
+CloudFront는 캐시 가능한 컨텐츠(이미지 및 비디오)와 동적 컨텐츠의 성능을 모두 향상시킨다. CloudFront는 <u>HTTP/RTMP</u> 프로토콜 기반 요청을 지원한다.
+
+AWS Global Accelerator는 하나 이상의 AWS Region에서 실행중인 애플리케이션에 가장자리에 있는 패킷을 프록시하여 <u>TCP 또는 UDP</u>를 통해 애플리케이션의 성능을 향상시킨다.
+
+<br>
+
 ## CloudWatch
 
-CloudWatch event or CloudWatch alarm로 직간접적으로 lambda functino을 트리거하는 것은 자원을 낭비하는 것이다. 
+CloudWatch event or CloudWatch alarm로 직간접적으로 lambda function을 트리거하는 것은 자원을 낭비하는 것이다. 
 
 그냥 EC2 Reboot CloudWatch Alarm Action을 통해 인스턴스를 reboot하면 된다. 
 
@@ -113,6 +131,8 @@ Cross-Zone Load Balancing이 불가능하다.
 
 Classic Load Balancer는 여러 Amazon EC2 인스턴스 간에 기본 로드 밸런싱을 제공하며 요청과 연결 level 모두 작동
 
+<br>
+
 ## NGINX based load balancer
 
 NGINX는 많은 configuration 작업이 필요하다. 그래서 EC2에 NGINX 로드 밸런서를 구축하면 작동하지만 관리 및 확장 문제가 발생한다.
@@ -167,6 +187,12 @@ transit gateway는 VPC를 상호 연결하거나 VPC를 **사내 네트워크**�
 
 <br>
 
+## Transit VPC
+
+Transit VPC를 사용하여 여러 지역의 다양한 VPC와 고객 데이터 센터 간의 연결을 지원할 수 있다.
+
+<br>
+
 ## Protection against accidental deletion of objects in Amazon S3
 
 + Enable versioning on the bucket 
@@ -178,13 +204,15 @@ transit gateway는 VPC를 상호 연결하거나 VPC를 **사내 네트워크**�
 
 Redshift Spectrum는 대규모 데이터set 저장 및 분석을 위해 설계된 <u>페타바이트</u> 규모의 클라우드 기반 데이터 웨어하우스 제품이다.
 
-Redshift Spectrum을 사용하면 데이터를 Amazon Redshift 테이블에 로드할 필요 없이 S3의 파일에서  구조화 및 반부조화된 데이터를 효율적으로 쿼리하고 검색할 수 있다.
+Redshift Spectrum을 사용하면 데이터를 Amazon Redshift 테이블에 로드할 필요 없이 S3의 파일에서 구조화 및 반구조화된 데이터를 효율적으로 쿼리하고 검색할 수 있다.
 
 <br>
 
 ## Amazon Kinesis 
 
 Amazon Kinesis는 **스트리밍 데이터**를 **real-time(실시간)**으로 수집, 버퍼링 및 처리할 수 있는 완전히 관리되고 확장 가능한 서비스이다.
+
+Amazon Kinesis는 모든 규모의 스트리밍 서비스를 비용 효율적으로 처리할 수 있는 주요 기능과 함께 애플리케이션의 요구 사항에 가장 적합한 툴을 선택할 수 있는 유연성을 제공한다.
 
 <br>
 
@@ -210,9 +238,17 @@ EC2 인스턴스에서 AWS 자격 증명을 유지하는 것은 잘못된 보안
 
 <br>
 
+## Auto Scaling group
+
+실행중인 인스턴스에 EC2 Auto Scaling group이 있고, ASG를 삭제하면 그 인스턴스는 종료되고 ASG도 삭제된다.
+
+ASG로 생성된 인스턴스는 기존 인스턴스의 데이터를 자동으로 복사하지 않는다.
+
+<br>
+
 ## Auto Scaling group lifecycle hook
 
-Auto Scaling group lifecycle hook를 사용하면 auto scaling 그룹이 인스턴스를 시작하거나 종료할 때 사용자 지정 작업을 수행할 수 있다.
+Auto Scaling group lifecycle hook을 사용하면 auto scaling 그룹이 인스턴스를 시작하거나 종료할 때 사용자 지정 작업을 수행할 수 있다.
 
 <br>
 
@@ -236,7 +272,7 @@ EC2 instance user data는 인스턴스를 시작할 때 구성 스크립트 형�
 
 ## Access Control Lists (ACLs)
 
-S3에서는 ACL을 사용하여 버킷이나 개체에 대해 읽기 또는 쓰기 액세스 권한을 사용자 그룹에 부여할 수 있다. ACL을 사용하면 Amazon S3 리소스에 대한 다른 <u>AWS 계정(특정 user는 안됨) 액세스 권한</u>만 부여할 수 있다.
+S3에서는 ACL을 사용하여 버킷이나 개체에 대해 읽기 또는 쓰기 액세스 권한을 사용자 그룹에 부여할 수 있다. ACL을 사용하면 Amazon S3 리소스에 대한 다른 <u>AWS 계정(특정 user는 안됨) 액세스 권한</u>만 부여할 수 있다. (계정에 대해서 액세스 권한을 주는 것은 가능하나 특정 user에 주는 것은 불가능)
 
 <br>
 
@@ -244,7 +280,7 @@ S3에서는 ACL을 사용하여 버킷이나 개체에 대해 읽기 또는 쓰�
 
 AWS IAM은 직원이 많은 조직에서 단일 AWS 계정으로 여러 사용자를 생성하고 관리할 수 있도록 지원한다. 
 
-IAM policy는 사용자에게 연겨되어 AWS 계정 아래의 사용자가 버킷 또는 개체에 액세스할 수 있는 권한을 중앙 집중식으로 제어할 수 있다. IAM 정책을 사용하면 <u>자신의 AWS 계정 내</u>의 사용자에게만 Amazon S3 리소스에 액세스 할 수 있는 권한을 부여할 수 있다.
+IAM policy는 사용자에게 연결되어 AWS 계정 아래의 사용자가 버킷 또는 개체에 액세스할 수 있는 권한을 중앙 집중식으로 제어할 수 있다. IAM 정책을 사용하면 <u>자신의 AWS 계정 내</u>의 사용자에게만 Amazon S3 리소스에 액세스 할 수 있는 권한을 부여할 수 있다.
 
 + full admininstratorAccess
 
@@ -304,7 +340,7 @@ Application Load balancer와 함께 사용될 경우 ACL의 규칙에 따라 요
 
 ## Snowball Edge
 
-Snowball Edge에 정장된 데이터는 S3 버킷에 복사되고 나중에 라이프사이클 정책을 통해 AWS Glacier로 전환될 수 있다.
+Snowball Edge에 저장된 데이터는 S3 버킷에 복사되고 나중에 라이프사이클 정책을 통해 AWS Glacier로 전환될 수 있다.
 
 Snowball Edge의 데이터를 AWS Glacier로 직접 복사할 수는 없다.
 
@@ -314,7 +350,7 @@ Snowball Edge의 데이터를 AWS Glacier로 직접 복사할 수는 없다.
 
 AWS CloudTrail은 AWS 계정의 거버넌스, 규정 준수, 운영 감사 및 리스크 감사를 지원하는 서비스이다.
 
-AWS CloudTrail을 사용하면 AWS 인프라 전반의 작업과 관련된 계정 활동을 기록, 지속적으로 모니터링 및 유지할 수 있다.
+AWS CloudTrail을 사용하면 AWS 인프라 전반의 작업과 관련된 계정 활동을 기록, 지속적으로 모니터링 및 유지할 수 있다. 예를 들어 "누가 이 리소스를 수정하기 위해 API 호출을 했습니까?"와 같은 질문에 응답할 수 있다.
 
 <br>
 
@@ -342,77 +378,82 @@ AWS Lambda를 사용하면 서버를 프로비저닝하거나 관리하지 않�
 
 AWS Lambda를 DynamoDB와 결합하여 IoT 소스에서 키 값 데이터를 처리하고 캡쳐할 수 있다.
 
+Lambda function은 항상 AWS 소유 VPC에서 작동하낟.
+
 <br>
 
+## VPN CloudHub
 
+AWS 사이트 간 VPN 연결이 여러 개인 경우 VPN CloudHub를 사용하여 사이트 간에 보안 통신을 제공할 수 있다.
 
+가상 private gateway에 direct connect 연결을 사용하는 사이트도 AWS VPN CloudHub에 속할 수 있다.
 
+만약 회사 본사는 VPC에 대해 Direct Connect 연결을 가지고 있고, 지점은 VPC에 대한 Site-to-Site 연결을 가지고 있다면 VPN Cloud Hub를 사용하여 지사끼리 뿐아니라 본사와도 데이터를 주고 받을 수 있다.
 
+<br>
 
+## AWS Storage Gateway
 
+AWS Storage Gateway는 on-premise 데이터와 S3에 있는 클라우드 데이터를 서로 액세스할 수 있게하는 하이브리드 클라우드 스토리지 서비스이다.
 
++ File Gateway
 
+  File Gateway는 애플리케이션 데이터 파일과 백업 이미지를 S3 클라우드 스토리지에 내구성이 뛰어난 개체로 저장하기 위해 클라우드에 원활하게 연결할 수 있는 방법을 제공한다.
 
+  **로컬 캐싱**을 통해 S3의 데이터에 대한 SMB 또는 NFS 기반 액세스를 제공한다.
 
+  File access / NFS => File Gateway
 
++ Volume Gateway
 
+  클라우드 기반 iSCSI 블록 스토리지 볼륨을 사내 애플리케이션에 제공하도록 Storage Gateway 서비스를 Volume Gateway로 구성할 수 있다.
 
+  로컬 캐시 또는 전체 volume을 사내에 제공하는 동시에 volume의 전체 복사본을 AWS cloud에 저장한다.
 
+  Volumes / Block Storage / iSCSI => Volume Gateway
 
++ Tape Gateway 
 
+  Tape Gateway를 사용하면 기존 백업 워크플로우를 변경하지 않고도 사내에서 물리적 테이프를 사용하여 AWS의 가상 테이프로 교체할 수 있다.
 
+  VTL Tape solution / Backup with iSCSI => Tape Gateway
 
+<br>
 
+## DynamoDB
 
+DynamoDB는 완벽하게 관리되는 NoSQL 데이터베이스 서비스로서 원활한 확장성과 함께 빠르고 예측 가능한 성능을 제공한다.
 
+default로 모든 DynamoDB 테이블은 CloudTrail 로그에 기록되지 않는 <u>AWS **소유** 고객 마스터 키(CMK)</u>로 암호화된다.
 
+<br>
 
+## X-Ray
 
+AWS X-Ray는 개발자가 마이크로서비스 아키텍처를 사용하여 구축된 애플리케이션과 같은 분산 애플리케이션을 분석하고 디버깅할 수 있도록 지원한다.
 
+X-Ray를 사용하면 성능 문제 및 오류의 근본 원인을 파악하고 문제를 해결하기 위해 애플리케이션과 기본 서비스가 어떻게 작동하는지 파악할 수 있다.
 
+X-Ray를 사용하여 AWS 계정 간에 데이터를 수집할 수 있다.
 
+<br>
 
+## Amazon Route 53 active-active, active-passive failover Configuration
 
+Amazon Route 53 active-active : 모든 리소스를 대부분의 시간 동안 사용 가능하도록 할 때 이 장애 조치 구성을 사용한다.
 
+Amazon Route 53 active-passive : 기본 리소스 또는 리소스 그룹이 대부분의 시간 동안 사용 가능하도록 하고 보조 리소스 또는 리소스 그룹은 기본 리소스가 사용 불가능할 경우를 대비해 대기 중에 있도록 할 때 이 장애 조치 구성을 사용한다.
 
+<br>
 
+## IAM vs Policy
 
+항목(topic) 또는 대기열(queue)에 대한 액세스를 제어하는 두 가지 방법
 
+1. IAM 사용자 또는 그룹에 정책을 추가합니다. 사용자에게 항목 또는 대기열에 대한 권한을 부여하는 가장 간단한 방법은 그룹을 만들고 그룹에 적절한 정책을 추가한 다음 해당 그룹에 사용자를 추가하는 것입니다. 개별 사용자에 대해 설정한 정책을 추적하는 것보다 사용자를 그룹에서 추가 및 제거하는 것이 훨씬 쉽다.
+2. 항목 또는 대기열에 정책을 추가합니다. 항목 또는 <u>다른 AWS 계정</u>의 대기열에 권한을 부여하려는 경우 권한을 부여받을 AWS 계정을 주체로 하는 정책을 추가하는 방법밖에는 없습니다.
 
+대부분 첫번째 방법을 사용하지만, **다른 계정의 사용자에게 권한을 부여해야 하는 경우 두 번째 방법을 사용**해야 한다.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+<br>
 
