@@ -1,3 +1,11 @@
+## S3
+
+S3 bucket은 자동으로 확장되므로 특정 양의 스토리지 공간을 계획하고 할당할 필요가 없다.
+
+S3는 서버리스 서비스이기 때문에 파일을 저장하는 서버를 직접 관리하거나 패치할 필요가 없으며 컨텐트를 저장하기만 하면 된다.
+
+<br>
+
 ## S3 Performance
 
 + Multi-Part upload - can help parallelize uploads (크기가 큰 파일을 부분으로 나눠서)
@@ -73,6 +81,10 @@ AWS Global Accelerator는 하나 이상의 AWS Region에서 실행중인 애플�
 CloudWatch event or CloudWatch alarm로 직간접적으로 lambda function을 트리거하는 것은 자원을 낭비하는 것이다. 
 
 그냥 EC2 Reboot CloudWatch Alarm Action을 통해 인스턴스를 reboot하면 된다. 
+
+CloudWatch 복구 옵션은 시스템 검사 실패에 대해서만 작동하며, 인스턴스 상태 검사 실패에 대해서는 작동하지 않는다.
+
+CloudWatch event를 사용해서 EC2 인스턴스 복구를 직접 트리거할 수는 없다.
 
 <br>
 
@@ -248,6 +260,8 @@ ASG로 생성된 인스턴스는 기존 인스턴스의 데이터를 자동으�
 
 Auto Scaling 그룹 내에서 실행중인 인스턴스의 상태가 좋지 않은것으로 확인되면 해당 인스턴스는 종류하고 새 인스턴스를 실행하다.
 
+Auto Scaling은 한 region내의 여러 AZ에 걸쳐 ASG를 포괄하여 지리적 이중화의 안전성과 신뢰성을 활용할 수 있다. 하나의 AZ가비정상적이거나 사용할 수 없게 된다면 Auto Scaling은  영향을 받지 않는 AZ에서 새 인스턴스를 시작한다. 애플리케이션은 매우 중요하며 이를 지원하기 위한 안정적인 아키텍처가 필요하므로, EC2 인스턴스는 중단 없는 서비스를 위해 최소 두 개의 AZ로 유지되어야 한다.
+
 <br>
 
 ## Auto Scaling group lifecycle hook
@@ -382,7 +396,11 @@ AWS Lambda를 사용하면 서버를 프로비저닝하거나 관리하지 않�
 
 AWS Lambda를 DynamoDB와 결합하여 IoT 소스에서 키 값 데이터를 처리하고 캡쳐할 수 있다.
 
-Lambda function은 항상 AWS 소유 VPC에서 작동하낟.
+Lambda function은 항상 AWS 소유 VPC에서 작동한다.
+
+Lambda는 직접 RESTful API 요청을 다룰 수 없다. API Gateway를 사용하여 사용자 지정 RESTful API를 정의하여 HTTPS를 통해 람다 함수를 호출할 수 있다.
+
+
 
 <br>
 
@@ -398,7 +416,7 @@ AWS 사이트 간 VPN 연결이 여러 개인 경우 VPN CloudHub를 사용하�
 
 ## AWS Storage Gateway
 
-AWS Storage Gateway는 on-premise 데이터와 S3에 있는 클라우드 데이터를 서로 액세스할 수 있게하는 하이브리드 클라우드 스토리지 서비스이다.
+AWS Storage Gateway는 on-premise 데이터와 S3에 있는 클라우드 데이터를 서로 액세스할 수 있게하는 하이브리드 클라우드 스토리지 서비스이다. 클라이언트가 사내 데이터 스토리지를 유지하고 애플리케이션을 AWS 클라우드로 이동하기를 원하는 경우 스토리지 게이트웨이를 사용하면 된다.
 
 + File Gateway
 
@@ -465,6 +483,8 @@ Amazon Route 53 active-passive : 기본 리소스 또는 리소스 그룹이 대
 
 Amazon GuardDuty는 AWS 계정, 워크로드 및 Amazon S3에 저장된 데이터를 보호하기 위해 악의적 활동 또는 무단 동작을 지속적으로 모니터링하고 보호할 수 있는 위협 탑지 기능을 제공한다.
 
+GuardDuty는 AWS CloudTrail 이벤트, Amazon VPC Flow Logs, DNS 로그 등 여러 AWS 데이터 소스에 걸쳐 수백억 개의 이벤트를 분석한다.
+
 만약 서비스를 사용 안함으로 설정하면 서비스 권한을 포기하고 서비스를 재설정하기 전에 기존 소견(findings) 및 구성을 포함하여 나머지 데이터가 모두 삭제된다.
 
 <br>
@@ -482,6 +502,56 @@ Amazon Athena는 표준 SQL을 이용해 S3의 데이터를 쉽게 분석할 수
 Amazon Athena는 서버리스로 관리할 인프라가 없으며 사용자가 실행하는 쿼리에 대해서만 비용을 지불한다.
 
 <br>
+
+## AWS Cognito User Pools
+
+Cognito User pool을 활용하여 기본 제공하는 사용자 관리를 하거나 Facebook, Twitter, Google+ 및 Amazon과 같은 외부 ID 제공자와 통합할 수 있다.
+
+Cognito User pool는 권한 부여를 위해 API Gateway와 통합할 수 있다.
+
+<br>
+
+## Cognito Identity pool
+
+Cognito Identity pool은 사용자에게 기타 AWS 서비스에 대한 사용자 액세스 권한을 부여한다.
+
+<br>
+
+## Amazon EC2 instance store
+
+instance store는 인스턴스에 임시 블록 레벨 저장소를 제공한다. instance store는 매우 높은 IOPS를 가지고 있다.
+
+<br>
+
+## Amazon EventBridge
+
+Amazon EventBridge는 자체 애플리케션, **SaaS** 애플리케이션, AWS 서비스의 데이터를 사용하여 애플리케이션을 쉽게 연결할 수 있게 지원하는 서버리스 이벤트 서비스이다.
+
+Amazon EventBridge는 유일하게 타사 **SaaS** 파트너와 직접 통합되는 이벤트 기반 서비스이다.
+
+<br>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
