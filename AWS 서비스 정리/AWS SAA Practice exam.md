@@ -4,6 +4,8 @@ S3 bucket은 자동으로 확장되므로 특정 양의 스토리지 공간을 �
 
 S3는 서버리스 서비스이기 때문에 파일을 저장하는 서버를 직접 관리하거나 패치할 필요가 없으며 컨텐트를 저장하기만 하면 된다.
 
+S3 개체는 S3 개체를 업로드한 AWS 계정에서 소유한다.
+
 <br>
 
 ## S3 Performance
@@ -63,6 +65,8 @@ AWS Global Accelerator는 로컬 또는 글로벌 사용자와 함께 애플리�
 CloudFront는 CDN(Content Delivery Network) 서비스로, 안전하고 확장 가능한 정적 및 동적 웹 컨텐츠, 비디오 스트림 및 API를 전 세계에 제공한다.
 
 CloudFront는 Edge Locations에서 콘텐츠를 캐싱함으로써 S3 버킷에 대한 로드를 줄이고 사용자가 콘텐츠를 요청할 때 빠르게 응답할 수 있도록 지원한다. S3에서 CloudFront까지 데이터 전송 수수료는 발생하지 않는다.
+
+CloudFront도 지리적으로 분산된 사용자에게 정적 컨텐츠를 배포할 수 있다.
 
 <br>
 
@@ -155,7 +159,7 @@ NGINX는 많은 configuration 작업이 필요하다. 그래서 EC2에 NGINX 로
 
 인터넷 규모의 실시간 애플리케이션에 전원을 공급하기 위해 밀리초 미만의 latency를 제공하는 매우 빠른 메모리 내 데이터 저장소이다.
 
-Amazon ElastiCache for Redis는 replication, 고가용성, 클러스터 샤딩을 지원하고 AOF persistence를 이용한 데이터 내구성이 있다. 그리고 백업 및 복구 특징이 있다. Amazon ElastiCache for Redis도 HIPAA 적용 대상 서비스이다.(Memchached는 아님)
+Amazon ElastiCache for Redis는 replication, 고가용성, 클러스터 샤딩을 지원하고 AOF persistence를 이용한 데이터 내구성이 있다. 그리고 백업 및 복구 특징이 있다. Amazon ElastiCache for Redis도 HIPAA 적용 대상 서비스이다. (Memchached는 아님)
 
 + AOF(Append Only File) : 명령어로 실행될 때마다 기록되는 파일
 
@@ -262,6 +266,8 @@ Auto Scaling 그룹 내에서 실행중인 인스턴스의 상태가 좋지 않�
 
 Auto Scaling은 한 region내의 여러 AZ에 걸쳐 ASG를 포괄하여 지리적 이중화의 안전성과 신뢰성을 활용할 수 있다. 하나의 AZ가비정상적이거나 사용할 수 없게 된다면 Auto Scaling은  영향을 받지 않는 AZ에서 새 인스턴스를 시작한다. 애플리케이션은 매우 중요하며 이를 지원하기 위한 안정적인 아키텍처가 필요하므로, EC2 인스턴스는 중단 없는 서비스를 위해 최소 두 개의 AZ로 유지되어야 한다.
 
+동시에 여러 정책이 ASG에 확장 또는 축소를 지시할 수 있다. 이때 Auto Scaling은 가장 큰 용량을 제공하는 정책을 선택한다.
+
 <br>
 
 ## Auto Scaling group lifecycle hook
@@ -340,9 +346,11 @@ NAT는 Public Subnet에 있어 private subnet의 인스턴스가 인터넷에 �
 
 NAT Instance는 Security group와 연결할 수 있다.  Vs NAT gateway는 Security group와 연결할 수 없다.
 
-NAT Instance는 port forwarding을 지원한다. Vs NAT gateway는 Security group을 지원하지 않는다.
+NAT Instance는 port forwarding을 지원한다. Vs NAT gateway는 port forwarding을 지원하지 않는다.
 
 NAT Instance는 bastian server처럼 사용될 수 있다. Vs NAT gateway는 bastian server처럼 사용될 수 없다. 
+
+NAT Instance는 관리되는 서비스가 아닌 고객이 관리하고 유지해야 한다. Vs NAT gateway는 완전 관리되는 서비스이다.
 
 <br>
 
@@ -352,7 +360,7 @@ AWS WAF는 웹 요청을 모니터링하고 악의적인 요청으로부터 웹 
 
 AWS WAF는 Application Load balancer, API Gateway, CloudFront에 배치되어 사용될 수 있다.
 
-Application Load balancer와 함께 사용될 경우 ACL의 규칙에 따라 요청을 허용하거나 차단할 수 있고, 지리적(geo) 일치 조건을 사용하면 뷰어의 지리적 위치에 따라 애플리케이션 액세스를 제한할 수 있다.
+Application Load balancer와 함께 사용될 경우 ACL의 규칙에 따라 요청을 허용하거나 차단할 수 있고, **지리적(geo) 일치 조건**을 사용하면 뷰어의 **지리적 위치에 따라 애플리케이션 액세스를 제한**할 수 있다.
 
 <br>
 
@@ -400,7 +408,7 @@ Lambda function은 항상 AWS 소유 VPC에서 작동한다.
 
 Lambda는 직접 RESTful API 요청을 다룰 수 없다. API Gateway를 사용하여 사용자 지정 RESTful API를 정의하여 HTTPS를 통해 람다 함수를 호출할 수 있다.
 
-
+Lambda는 다른 계정에도 write할 수 있다.
 
 <br>
 
@@ -447,6 +455,14 @@ AWS Storage Gateway는 on-premise 데이터와 S3에 있는 클라우드 데이�
 DynamoDB는 완벽하게 관리되는 NoSQL 데이터베이스 서비스로서 원활한 확장성과 함께 빠르고 예측 가능한 성능을 제공한다.
 
 default로 모든 DynamoDB 테이블은 CloudTrail 로그에 기록되지 않는 <u>AWS **소유** 고객 마스터 키(CMK)</u>로 암호화된다.
+
+<br>
+
+## DynamoDB - DAX
+
+DAX는 DynamoDB를 위한 완전히 관리되고 가용성이 높은 내장 메모리 **캐시**로서 초당 수백만 번의 요청에서도 밀리초에서 마이크로초까지 최대 10배의 성능 향항을 제공한다.
+
+DAX는 DynamoDB 읽기를 기본적으로 캐시하는데 사용된다.
 
 <br>
 
@@ -531,11 +547,23 @@ Amazon EventBridge는 유일하게 타사 **SaaS** 파트너와 직접 통합되
 
 <br>
 
+## Blue/Green deployment
 
+서로 다른 버전의 애플리케이션을 실행하는 두 개의 동일한 환경 사이에서 트래픽을 이동하여 애플리케이션을 릴리즈하는 기술이다. 이러한 유형의 배포를 통해 현재 실행중인 애플리케이션 버전에 영향을 주지 않고 녹색 환경에서 기능을 테스트할 수 있다. 녹색 버전이 제대로 동작하고 있다면 만족하고 트래픽을 이전 파란색 환경에서 녹색 환경으로 점차 라우팅한다.
 
+이때 Global Accelerator를 사용하면 클라이언트 디바이스 및 인터넷 해결사의 DNS 캐시에 영향을 받지 않고 트래픽을 점진적으로 또는 녹색 환경과 그 반대로 한 번에 이동할 수 있으며, 트래픽 다이얼 및 엔드포인트 가중치 변경도 몇 초 내에 변경된다.
 
+<br>
 
+## AWS Cost Explorer
 
+AWS Cost Explorer는 동일한 인스턴스 제품군 내에서 인스턴스별로 축소될 수 있는 활용율이 낮은 EC2 인스턴스를 식별하고 예약된 인스턴스 및 절감 계획을 고려하여 AWS 청구서에 미칠 수 있는 영향을 파악할 수 있다.
+
+<br>
+
+## AWS Compute Optimizer
+
+AWS Compute Optimizer는 머신러닝을 사용하여 과거 사용율 메트릭을 분석하여 비용 절감과 성능을 향상시키는 최적의 AWS Compute 리소스를 추천한다.
 
 
 
