@@ -1,10 +1,22 @@
-## S3
+## AWS S3
 
 S3 bucket은 자동으로 확장되므로 특정 양의 스토리지 공간을 계획하고 할당할 필요가 없다.
 
 S3는 서버리스 서비스이기 때문에 파일을 저장하는 서버를 직접 관리하거나 패치할 필요가 없으며 컨텐트를 저장하기만 하면 된다.
 
 S3 개체는 S3 개체를 업로드한 AWS 계정에서 소유한다.
+
+S3를 사용하면 정적 웹 사이트를 호스팅할 수 있다. 반면 동적 웹 사이트를 호스팅하기 위해서는 다른 리소스를 사용해야 한다.
+
+S3 bucket은 security group가 없다.
+
+S3는 데이터베이스 테이블에 대한 쿼리를 즉시 지원하는 데이터베이스 기술이 아니기 때문에 이 옵션은 잘못되었다.
+
+<br>
+
+## OAI
+
+OAI는 CloudFront 통해서만 S3 버킷의 파일을 사용할 수 있도록 하여 보안을 높인다.
 
 <br>
 
@@ -134,6 +146,8 @@ Application 과 Classic Load Balancer는 IP 주소가 아닌 고정 DNS(=URL)를
 ALB는 HTTP 및 HTTPS 트래픽의 로드 밸런싱에 가장 적합하며 microservice 및 container를 포함한 최신 애플리케이션 아키텍처의 제공을 목표로 하는 advanced request routing을 제공한다.
 
 Cross-Zone Load Balancing이 가능하다.
+
+Caching 기능이 없다.
 
 <br>
 
@@ -337,6 +351,8 @@ Cluster placement groups는 네트워크 지연 시간이 짧거나 네트워크
 Spot Instance는 가장 저렴한 인스턴스로 장애에 대해 복원력이 뛰어난 워크로드에 유용하다.
 
 Spot Instance는 중요한 작업(critical job) 또는 database에 적합하지 않다.
+
+Spot Instance는 볼륨의 예측 불가능한 특성 및 **비용 절감**을 바란다면 on-demand 대신 권장된다.
 
 <br>
 
@@ -611,11 +627,33 @@ Cloud Formation를 사용하면 프로그래밍 언어 또는 간단한 텍스�
 
 <br>
 
+## Amazon Workspaces
 
+Amazon Workspaces는 DaaS(Desktop as a Service)이다. 
 
+Amazon Workspaces를 통해 사용자는 언제 어디서나 지원되는 장치에서 액세스할 수 있는 빠르고 응답성이 뛰어난 데스크톱을 사용할 수 있다.
 
+<br>
 
+## AWS SSO(Single Sign-On)
 
+AWS SSO를 사용하면 여러 AWS 계정 및 비즈니스 애플리케이션에 대한 액세스를 중앙에서 쉽게 관리하고 사용자에게 할당된 모든 계정 및 애플리케이션에 대한 단일 로그인 액세스를 한 곳에서 제공할 수 있다,
+
+<br>
+
+## Pilot Light
+
+Pilot Light는 중요한 **핵심 코어**를 중심으로 전체 운영 환경을 신속하게 프로비저닝할 수 있다.
+
+애플리케이션의 작은 버전은 항상 실행되고 있다.
+
+<br>
+
+## Warm Standby
+
+Warm Standby는 전체 작동 환경의 축소된 버전이 실행되는 DR 시나리오를 설명하는데 사용된다.
+
+AWS 내에서 이미 실행된 상태에서 대기한다.
 
 
 
