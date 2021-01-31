@@ -42,6 +42,8 @@ AWS Direct Connect를 사용하면 네트워크와 AWS Direct Connect 위치 중
 
 AWS Direct Connect은 프로비저닝하는데 상당한 시간이 소요되고, 특정 사용 사례에 대한 overkill이다.
 
+Direct Connect를 백업 솔루션으로 사용하면 public internet이기 때문에 작동은 하지만 실패할 위험도 있다. 따라서 **Site to Site VPN**을 백업 연결로 사용한다.
+
 <br>
 
 ## AWS Site to Site VPN
@@ -64,9 +66,11 @@ AWS Global Accelerator는 로컬 또는 글로벌 사용자와 함께 애플리�
 
 CloudFront는 CDN(Content Delivery Network) 서비스로, 안전하고 확장 가능한 정적 및 동적 웹 컨텐츠, 비디오 스트림 및 API를 전 세계에 제공한다.
 
-CloudFront는 Edge Locations에서 콘텐츠를 캐싱함으로써 S3 버킷에 대한 로드를 줄이고 사용자가 콘텐츠를 요청할 때 빠르게 응답할 수 있도록 지원한다. S3에서 CloudFront까지 데이터 전송 수수료는 발생하지 않는다.
+CloudFront는 Edge Locations에서 콘텐츠를 **캐싱**함으로써 S3 버킷에 대한 로드를 줄이고 사용자가 콘텐츠를 요청할 때 빠르게 응답할 수 있도록 지원한다. S3에서 CloudFront까지 데이터 전송 수수료는 발생하지 않는다.
 
 CloudFront도 지리적으로 분산된 사용자에게 정적 컨텐츠를 배포할 수 있다.
+
+CloudFront는 regional edge cache가 있어 모든 유형의 컨텐츠, 특히 시간이 지남에 따라 인기가 떨어지는 경향이 있는 컨텐츠에 유용하다.
 
 <br>
 
@@ -118,7 +122,9 @@ Amazon Glue는 고객이 분석을 위해 데이터를 쉽게 준비하고 로�
 
 ## Application Load Balancer
 
-Application Load Balancer는 들어오는 애플리케이션 트래픽을 EC2 인스턴스, 컨테이너, IP 주소 및 람다 기능과 같은 여러 대상에 자동으로 분산시킬 수 있다. 
+Application Load Balancer는 요청 수준(7계증)에서 작동하며, 요청 내용에 따라 트래픽을 대상(EC2 인스턴스, 컨테이너, IP 주소 및 람다 기능)에 자동으로 분산시킬 수 있다. 
+
+Application 과 Classic Load Balancer는 IP 주소가 아닌 고정 DNS(=URL)를 노출시킨다.
 
 만약 application이 여러 개별 서비스로 구성된 경우 Application Load Balancer는 ⭐**content-based**(요청 내용에 따라) 요청을 서비스로 라우팅할 수 있다.
 
@@ -134,6 +140,8 @@ Cross-Zone Load Balancing이 가능하다.
 ## Network Load Balancer
 
 Network Load Balancer는 지연 시간이 짧고 초당 수백만 건의 요청으로 확장되는 높은 처리량 워크로드를 포함하는 사례에 적합
+
+Network Load Balancer는 **고정 IP**를 공용 웹에 노출하므로 이러한 IP를 사용하여 애플리케이션에 예측 가능한 방식으로 액세스할 수 있다.
 
 Network Load Balancer는 **IP프로토콜 데이터**를 기반으로 Amazon VPC내의 대상에 대한 연결을 라우팅
 
@@ -179,7 +187,7 @@ Amazon ElastiCache for Memcached는 메모리 내 캐시를 구현하여 액세�
 
 AWS OpsWorks는 Chef 및 Puppet의 관리 인스턴스를 제공하는 configuration management 서비스이다.
 
-Chef and Puppet은 코드를 사용하여 서버 구성을 자동화할 수 있는 자동화 플랫폼이다.
+Chef and Puppet은 코드를 사용하여 <u>서버 구성을 자동화</u>할 수 있는 자동화 플랫폼이다.
 
 OpsWorks를 사용하면 Chef and Puppet를 사용하여 EC2 인스턴스 또는 사내 컴퓨팅 환경에서 서버가 구성, 배포 및 관리되는 방법을 자동화할 수 있다.
 
@@ -312,6 +320,8 @@ IAM policy는 사용자에게 연결되어 AWS 계정 아래의 사용자가 버
 
   + change account name or root password or root email address, change AWS support plan, close AWS account, enable MFA on S3 bucket delete, create Cloudfront key pair, register for GovCloud
 
+Authentication -> IAM
+
 <br>
 
 ## Cluster placement group
@@ -410,6 +420,10 @@ Lambda는 직접 RESTful API 요청을 다룰 수 없다. API Gateway를 사용�
 
 Lambda는 다른 계정에도 write할 수 있다.
 
+Lambda funciton은 실행당 최대 15분까지 실행되도록 구성할 수 있다. 시간초과(timeout)를 1초에서 15분 사이의 값으로 설정할 수 있다.
+
+만약 runtime에 문제가 있을 경우 lambda function의 실행이 실패한다.
+
 <br>
 
 ## VPN CloudHub
@@ -458,11 +472,17 @@ default로 모든 DynamoDB 테이블은 CloudTrail 로그에 기록되지 않는
 
 <br>
 
+## DynamoDB Stream
+
+DynamoDB Stream은 DynamoDB 테이블의 항목 변경에 대한 정보의 순서 흐름이다. 테이블에 발생하는 모든 변경 내용의 스트림이 포함된다.
+
+<br>
+
 ## DynamoDB - DAX
 
 DAX는 DynamoDB를 위한 완전히 관리되고 가용성이 높은 내장 메모리 **캐시**로서 초당 수백만 번의 요청에서도 밀리초에서 마이크로초까지 최대 10배의 성능 향항을 제공한다.
 
-DAX는 DynamoDB 읽기를 기본적으로 캐시하는데 사용된다.
+DAX는 DynamoDB **읽기**를 기본적으로 캐시하는데 사용된다. (쓰기에는 도움이 되지 않는다.)
 
 <br>
 
@@ -565,15 +585,31 @@ AWS Cost Explorer는 동일한 인스턴스 제품군 내에서 인스턴스별�
 
 AWS Compute Optimizer는 머신러닝을 사용하여 과거 사용율 메트릭을 분석하여 비용 절감과 성능을 향상시키는 최적의 AWS Compute 리소스를 추천한다.
 
+<br>
 
+## Security Group
 
+Security Group rule은 항상 허용되므로 액세스를 거부하는 규칙은 만들 수 없다. 
 
+만약 A에서 들어오는 트래픽만을 허용하도록 B의 Security Group를 구성하는 방법은 A의 secuity group을 인증하는 규칙을 추가한다.
 
+<br>
 
+## SSE-C
 
+SSE-C(고객 제공 키)가 포함된 서버측 암호화를 사용하면 암호화 키를 관리하고 디스크에 쓸 때 Amazon S3가 암호화를 관리하고 개체에 액세스할 때 암호 해독을 관리한다. 
 
+SSE-C를 사용하면 **시작 시 암호화 키를 제공**하지만 AWS에서 암호화를 수행하도록 할 수 있다.
 
+<br>
 
+## Cloud Formation
+
+Cloud Formation은 AWS 리소스를 자동으로 생성해주는 서비스이다.
+
+Cloud Formation를 사용하면 프로그래밍 언어 또는 간단한 텍스트 파일을 사용하여 **모든 지역 및 계정에서 애플리케이션에 필요한 모든 리소스를 자동화되고 안전하게 모델링 및 프로비저닝**할 수 있다.
+
+<br>
 
 
 
