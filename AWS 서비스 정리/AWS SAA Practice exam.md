@@ -290,6 +290,8 @@ Auto Scaling은 한 region내의 여러 AZ에 걸쳐 ASG를 포괄하여 지리�
 
 동시에 여러 정책이 ASG에 확장 또는 축소를 지시할 수 있다. 이때 Auto Scaling은 가장 큰 용량을 제공하는 정책을 선택한다.
 
+고가용성(HA)을 위한 최소 용량은 **2**개이다.
+
 <br>
 
 ## Auto Scaling group lifecycle hook
@@ -415,6 +417,12 @@ Amazon Aurora는 MySQL과 Postgre과 호환되는 완전 관리형  **관계형 
 ## Amazon Aurora Global Database
 
 Amazon Aurora Global Database는 전 세계적으로 분산된 애플리케이션을 위해 설계되었으며, 단일 Amazon Aurora 데이터베이스가 여러 AWS 영역에 걸쳐 있을 수 있게 된다. 데이터베이스 성능에 영향을 주지 않고 데이터를 복제하고, 각 지역에서 대기 시간이 짧고 빠른 읽기를 가능하게 하며, 지역 전체의 운영 중단으로부터 재해 복구를 제공한다.
+
+<br>
+
+## AMI
+
+AMI는 자신이 생성된 **지역**에 바운딩되어 있다. 때문에 다른 지역에서 AMI를 사용하기 위해서는 **지역별로 AMI를 복사**해야 한다.
 
 <br>
 
@@ -654,6 +662,14 @@ Pilot Light는 중요한 **핵심 코어**를 중심으로 전체 운영 환경�
 Warm Standby는 전체 작동 환경의 축소된 버전이 실행되는 DR 시나리오를 설명하는데 사용된다.
 
 AWS 내에서 이미 실행된 상태에서 대기한다.
+
+<br>
+
+## SNI (Server Name Indication)
+
+SNI를 통해 AWS는 동일한 ALB로 **두 개 이상의 인증서**를 쉽게 사용할 수 있다.
+
+<br>
 
 
 
