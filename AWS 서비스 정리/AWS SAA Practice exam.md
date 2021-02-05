@@ -14,6 +14,12 @@ S3는 데이터베이스 테이블에 대한 쿼리를 즉시 지원하는 데�
 
 <br>
 
+## AWS S3 Storage 
+
+미사용 데이터와 전송중인 데이터에 encryption을 지원하는 S3 스토리지 클래스는 S3 Glacier이다.
+
+<br>
+
 ## OAI 
 
 OAI는 CloudFront 통해서만 S3 버킷의 파일을 사용할 수 있도록 하여 보안을 높인다.
@@ -394,9 +400,9 @@ Application Load balancer와 함께 사용될 경우 ACL의 규칙에 따라 요
 
 ## Snowball Edge
 
-Snowball Edge에 저장된 데이터는 S3 버킷에 복사되고 나중에 라이프사이클 정책을 통해 AWS Glacier로 전환될 수 있다.
+Snowball Edge는 대역폭이 제한되거나 원격, 연결 끊김 또는 더더 엄격 환경에서 데이터를 전송하는 고객에게 오프라인 데이터 전송에 적합하다.
 
-Snowball Edge의 데이터를 AWS Glacier로 직접 복사할 수는 없다.
+Snowball Edge에 저장된 데이터는 S3 버킷에 복사되고 나중에 라이프사이클 정책을 통해 AWS Glacier로 전환될 수 있다. Snowball Edge의 데이터를 AWS Glacier로 직접 복사할 수는 없다.
 
 <br>
 
@@ -480,7 +486,9 @@ AWS Storage Gateway는 on-premise 데이터와 S3에 있는 클라우드 데이�
 
   Volumes / Block Storage / iSCSI => Volume Gateway
 
-+ Tape Gateway 
++ Tape Gateway +
+
++ 
 
   Tape Gateway를 사용하면 기존 백업 워크플로우를 변경하지 않고도 사내에서 물리적 테이프를 사용하여 AWS의 가상 테이프로 교체할 수 있다.
 
@@ -671,6 +679,28 @@ SNI를 통해 AWS는 동일한 ALB로 **두 개 이상의 인증서**를 쉽게 
 
 <br>
 
+## Elastic Load Balancer
 
++ Connection Draining : ELB가 기존 연결을 열어두면서 등록 취소 중이거나 상태가 좋지 않은 인스턴스에 대한 요청 기능을 중지하도록 할 때 사용.
 
+<br>
 
+## CNAME vs Alias
+
+|                        | CNAME                          | Alias                |
+| ---------------------- | ------------------------------ | -------------------- |
+| DNS namespace 지원     | 지원 안함                      | 지원 함              |
+| 쿼리에 관해서 요금부과 | 부과 o                         | 부과 x               |
+| point                  | 아무 DNS record 가리킬 수 있음 | AWS 자원만 접근 가능 |
+
+<br>
+
+## AWS Data Sync
+
+AWS DataSync는 온프레미스 스토리지 시스템과 AWS 스토리지 서비스 간, 그리고 여러 AWS 스토리지 서비스 간의 데이터 이동을 간소화, 자동화 및 가속화하는 온라인 데이터 전송 서비스이다.  DataSync를 사용하여 **활성 데이터를 AWS로 마이그레이션**하거나, 데이터를 아카이브하여 온프레미스 스토리지 용량을 확보하거나, 비즈니스 연속성을 위해 데이터를 AWS로 복제하거나, 분석 및 처리를 위해 데이터를 클라우드로 전송할 수 있다.
+
+<br>
+
+## AWS Transfer Family
+
+AWS Transfer Family는 Amazon S3로 직접 파일 전송을 완벽하게 관리한다.
