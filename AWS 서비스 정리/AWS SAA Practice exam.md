@@ -92,7 +92,7 @@ AWS Global Accelerator와 CloudFront는 AWS 글로벌 네트워크와  전 세�
 
 CloudFront는 캐시 가능한 컨텐츠(이미지 및 비디오)와 동적 컨텐츠의 성능을 모두 향상시킨다. CloudFront는 <u>HTTP/RTMP</u> 프로토콜 기반 요청을 지원한다.
 
-AWS Global Accelerator는 하나 이상의 AWS Region에서 실행중인 애플리케이션에 가장자리에 있는 패킷을 프록시하여 <u>TCP 또는 UDP</u>를 통해 애플리케이션의 성능을 향상시킨다.
+AWS Global Accelerator는 하나 이상의 AWS Region에서 실행중인 애플리케이션에 가장자리에 있는 패킷을 프록시하여 <u>TCP 또는 **UDP**</u>를 통해 애플리케이션의 성능을 향상시킨다.
 
 <br>
 
