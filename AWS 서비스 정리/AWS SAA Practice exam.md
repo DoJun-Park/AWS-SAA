@@ -262,6 +262,20 @@ Kinesis Data Streams는 audio file을 읽을 수 없다.
 
 <br>
 
+## Amazon Kinesis Data Streams(KDS)
+
+Amazon Kinesis Data Streams는 대규모 확장 가능하고 내구성이 뛰어난 실시간 데이터 스트리밍 서비스이다.
+
+<br>
+
+## Amazon Kinesis Data Firehose
+
+Kinesis Firehose는 데이터 처리량에 대응하여 자동으로 확장되며 지속적인 관리가 필요 없는 완전관리형 서비스이다. 데이터를 로드하기 전에 데이터를 배치, 압축, 변환 및 암호화할 수 있으므로 대상에서 사용되는 스토리지 양을 최소화하고 보안을 강화할 수 있다.
+
+Kinesis Firehose는 S3, Redshift, Elasticsearch or Splunk에만 작성할 수 있다.
+
+<br>
+
 ## Amazon API Gateway
 
 Amazon API Gateway는 너무 많은 요청에 의해 API가 압도되는 것을 방지하기 위해 토큰 버킷 알고리즘을 사용하여 요청을 조절한다.
@@ -589,6 +603,8 @@ Cognito Identity pool은 사용자에게 기타 AWS 서비스에 대한 사용�
 
 instance store는 인스턴스에 임시 블록 레벨 저장소를 제공한다. instance store는 매우 높은 IOPS를 가지고 있다.
 
+만약 높은 IOPS와 최적의 비용을 찾는다면 io1 대신 instance store가 좋은 선택지이다.
+
 <br>
 
 ## Amazon EventBridge
@@ -704,3 +720,26 @@ AWS DataSync는 온프레미스 스토리지 시스템과 AWS 스토리지 서�
 ## AWS Transfer Family
 
 AWS Transfer Family는 Amazon S3로 직접 파일 전송을 완벽하게 관리한다.
+
+<br>
+
+## Automtic recovery
+
+EC2 인스턴스가 문제로 인해 손상될 경우 Cloudwatch를 통해 자동으로 복구될 수 있다.
+
+이때 복구된 인스턴스는 인스턴스 ID, 개인 IP 주소, Elastic IP 주소 및 모든 인스턴스 메타데이터를 포함하여 원래 인스턴스와 동일하다. 손상된 인스턴스가 배치 그룹에 있으면 복구된 인스턴스가 배치 그룹에서 실행된다. 
+
+대신 종료된 인스턴스는 복구할 수 없다.
+
+<br>
+
+## EC2 hibernate
+
+인스턴스를 Hibernate(최대 절전 모드)로 전환하면 AWS가 운영 체제에 최대 절전 모드를 수행하도록 신호를 보낸다.  최대 절전 모드에서는 RAM으로 로드된 내용을 다시 가져와 이전에 실행중인 프로세스를 다시 시작할 수 있다.
+
+때문에 오랜 시간 사용을 안하다가 나중에 사용하기 위해 미리 pre-warm이 필요한 경우 사용한다. 
+
+60일 이내 까지 hibernate 가능
+
+<br>
+
