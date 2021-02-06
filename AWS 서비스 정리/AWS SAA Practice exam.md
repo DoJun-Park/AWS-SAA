@@ -412,11 +412,31 @@ Application Load balancer와 함께 사용될 경우 ACL의 규칙에 따라 요
 
 <br>
 
+## AWS Snowmobile
+
+AWS Snowmobile은 매우 많은 양의 데이터를 AWS로 이동하는 데 사용되는 엑사바이트 규모의 데이터 전송 서비스이다. 세미 트레일러 트럭을 통해 최대 100PB까지 전송할 수 있다.
+
+10PB 이상의 대규모 데이터셋을 이동할 때 권장하고, 10PB미만 또는 여러 위치에 분산되어 있는 데이터셋의 경우 Snowball을 사용한다.
+
+<br>
+
+## AWS Snowball
+
+AWS Snowball 서비스는 물리적 스토리지 장치를 사용하여 Amazon S3와 고객의 온사이트 데이터 스토리지 위치 간에 대량의 데이터를 인터넷 속도보다 빠른 속도로 전송한다.
+
+<br>
+
 ## Snowball Edge
 
-Snowball Edge는 대역폭이 제한되거나 원격, 연결 끊김 또는 더더 엄격 환경에서 데이터를 전송하는 고객에게 오프라인 데이터 전송에 적합하다.
+Snowball Edge는 대역폭이 제한되거나 원격, 연결 끊김 또는 더 엄격 환경에서 데이터를 전송하는 고객에게 오프라인 데이터 전송에 적합하다.
 
 Snowball Edge에 저장된 데이터는 S3 버킷에 복사되고 나중에 라이프사이클 정책을 통해 AWS Glacier로 전환될 수 있다. Snowball Edge의 데이터를 AWS Glacier로 직접 복사할 수는 없다.
+
+<br>
+
+## Snowball vs Snowball Edge
+
+AWS Snowball은 이제 서비스 전체를 가리키며 Snowball Edge는 이 서비스가 사용하는 최신 디바이스 유형을 가리킵니다. 때로는 Snowball Edge를 AWS Snowball 디바이스로 통칭하기도 합니다. 초기 Snowball 하드웨어 디자인은 데이터 전송용으로만 사용되었습니다. Snowball Edge에는 네트워크 연결을 사용할 수 없는 경우에도 로컬로 컴퓨팅을 수행할 수 있는 추가 기능이 탑재되어 있습니다.
 
 <br>
 
@@ -425,6 +445,16 @@ Snowball Edge에 저장된 데이터는 S3 버킷에 복사되고 나중에 라�
 AWS CloudTrail은 AWS 계정의 거버넌스, 규정 준수, 운영 감사 및 리스크 감사를 지원하는 서비스이다.
 
 AWS CloudTrail을 사용하면 AWS 인프라 전반의 작업과 관련된 계정 활동을 기록, 지속적으로 모니터링 및 유지할 수 있다. 예를 들어 "누가 이 리소스를 수정하기 위해 API 호출을 했습니까?"와 같은 질문에 응답할 수 있다.
+
+<br>
+
+## AWS Config
+
+AWS Config는 AWS 리소스의 구성을 평가 및 감사할 수 있는 서비스이다. 
+
+AWS Config를 사용하면 AWS 리소스 간의 구성 및 관계 변경 사항을 검토하고, 세부 리소스 구성 기록을 자세히 살펴보고, 내부 지침에 지정된 구성에 대한 전반적인 준수 여부를 확인할 수 있다.
+
+AWS Config를 통해 "x 시점에서 AWS 리소스가 어떻게 보이는지"와 같은 질문에 답할 수 있다.
 
 <br>
 
@@ -488,7 +518,7 @@ AWS Storage Gateway는 on-premise 데이터와 S3에 있는 클라우드 데이�
 
   File Gateway는 애플리케이션 데이터 파일과 백업 이미지를 S3 클라우드 스토리지에 내구성이 뛰어난 개체로 저장하기 위해 클라우드에 원활하게 연결할 수 있는 방법을 제공한다.
 
-  **로컬 캐싱**을 통해 S3의 데이터에 대한 SMB 또는 NFS 기반 액세스를 제공한다.
+  **로컬 캐싱**을 통해 S3의 데이터에 대한 **SMB(Server Message Block)** 또는 NFS 기반 액세스를 제공한다.
 
   File access / NFS => File Gateway
 
@@ -500,9 +530,7 @@ AWS Storage Gateway는 on-premise 데이터와 S3에 있는 클라우드 데이�
 
   Volumes / Block Storage / iSCSI => Volume Gateway
 
-+ Tape Gateway +
-
-+ 
++ Tape Gateway 
 
   Tape Gateway를 사용하면 기존 백업 워크플로우를 변경하지 않고도 사내에서 물리적 테이프를 사용하여 AWS의 가상 테이프로 교체할 수 있다.
 
@@ -742,4 +770,58 @@ EC2 인스턴스가 문제로 인해 손상될 경우 Cloudwatch를 통해 자�
 60일 이내 까지 hibernate 가능
 
 <br>
+
+## Availability Zone
+
+한 계정의 AZ us-west-a2는 다른 계정의 us-west-a2와 동일한 위치가 아닐 수 있다. 때문에 계정 간에 가용성 영역을 조정하려면 가용성 영역의 고유하고 일관된 식별자인 **AZ ID**를 이용해야 한다.
+
+<br>
+
+## AWS Step Function
+
+AWS Step Function을 사용하면 AWS Lambda 및 AWS Glue와 같은 여러 AWS 서비스를 서버리스 워크플로우로 조정하고 오케스트레이트 할 수 있다.  
+
+Step Function은 주어진 사용 사례에 정의된 워크플로우에 따라 글루 ETL 작업과 람다 기능이 순서대로 성공적으로 실행되도록 할 수 있다.
+
+<br>
+
+## AWS Simple Workflow Service(SWF)
+
+Amazon SWF는 개발자가 병렬 또는 순차적 단계를 가진 백그라운드 작업을 구축, 실행 및 확장할 수 있도록 지원한다.
+
+Amazon SWF에서 태스크는 애플리케이션의 논리적 단계 호출을 나타낸다.
+
+Amazon SWF는 오케스트레이션 로직을 완벽하게 제어할 수 있지만, 애플리케이션 개발의 복잡성을 증가시킨다.
+
+<br>
+
+## target tracking scaling group vs step scaling group
+
+갑작스런 spike를 처리할 때는 필요한 인스턴스 수를 정확하게 계산할 수 있는 target tracking 정책이 step정책보다 더 효율적이다.
+
+<br>
+
+## Elastic Fabric Adapter
+
+EFA는 EC2 인스턴스에 연결하여 HPC(High Performance Computing) 및 기계 학습 응용 프로그램을 가속화할 수 있는 네트워크 장치이다.
+
+<br>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
