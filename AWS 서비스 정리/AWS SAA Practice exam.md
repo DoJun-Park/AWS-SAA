@@ -157,7 +157,7 @@ Caching 기능이 없다.
 
 <br>
 
-## Network Load Balancer
+## Network Load Balancer(NLB)
 
 Network Load Balancer는 지연 시간이 짧고 초당 수백만 건의 요청으로 확장되는 높은 처리량 워크로드를 포함하는 사례에 적합
 
@@ -376,11 +376,17 @@ Spot Instance는 중요한 작업(critical job) 또는 database에 적합하지 
 
 Spot Instance는 볼륨의 예측 불가능한 특성 및 **비용 절감**을 바란다면 on-demand 대신 권장된다.
 
+Spot request가 지속되면 spot request가 중단된 후 다시 열린다.
+
+Spot block(지속 시간)을 가진 spot instance는 중단되지 않도록 설계되었다.
+
+Active spot request를 취소해도 연결된 인스턴스는 종료되지 않는다.
+
 <br>
 
 ## FIFO queue
 
-FIFO queue는 일괄 처리(batching)를 통해 최대 초당 3000개의 메시지를 지원하고, 일괄 처리 없이는 초당 300개의 메시지를 지원한다.
+FIFO queue는 일괄 처리(batching)를 통해 최대 초당 3000개의 메시지를 지원하고, **일괄 처리 없이**는 **초당 300개**의 메시지를 지원한다.
 
 FIFO queue의 이름은 .fifo 접미사로 끝나야 한다.
 
@@ -461,6 +467,12 @@ AWS Config를 통해 "x 시점에서 AWS 리소스가 어떻게 보이는지"와
 ## Amazon Aurora
 
 Amazon Aurora는 MySQL과 Postgre과 호환되는 완전 관리형  **관계형 데이터베이스** 엔진이다. 
+
+<br>
+
+## Amazon Aurora serverless
+
+Amazon Aurora serverless는 Amazon Aurora의 온디맨드 auto scaling 구성이다. 애플리케이션 요구 사항을 기반으로 자동으로 시작 및 종료하고 용량을 확장 또는 축소한다. **완전 관리형 auto scaling** 솔루션으로 <u>간헐적 또는 예측 불가능한 워크로드</u>를 위한 간단하고 비용 효율적인 옵션이다.
 
 <br>
 
@@ -739,7 +751,7 @@ SNI를 통해 AWS는 동일한 ALB로 **두 개 이상의 인증서**를 쉽게 
 
 <br>
 
-## AWS Data Sync
+## AWS DataSync
 
 AWS DataSync는 온프레미스 스토리지 시스템과 AWS 스토리지 서비스 간, 그리고 여러 AWS 스토리지 서비스 간의 데이터 이동을 간소화, 자동화 및 가속화하는 온라인 데이터 전송 서비스이다.  DataSync를 사용하여 **활성 데이터를 AWS로 마이그레이션**하거나, 데이터를 아카이브하여 온프레미스 스토리지 용량을 확보하거나, 비즈니스 연속성을 위해 데이터를 AWS로 복제하거나, 분석 및 처리를 위해 데이터를 클라우드로 전송할 수 있다.
 
@@ -807,21 +819,102 @@ EFA는 EC2 인스턴스에 연결하여 HPC(High Performance Computing) 및 기�
 
 <br>
 
+## AWS Elastic Beanstalk
+
+AWS Elastic Beanstalk는 애플리케이션을 실행하는 인프라에 대해 자세히 알지 못해도 AWS 클라우드에서 애플리케이션을 신속하게 배포하고 관리할 수 있게 해주는 서비스이다.
+
+애플리케이션 코드를 업로드하기만 하면 해당 애플리케이션을 배포하는데 필요한 리소스를 자동으로 파악한다.
+
+<br>
+
+## AWS CloudFormation
+
+AWS CloudFormation는 사용하려는 AWS 리소스를 JSON이나 YAML형식으로 템플릿 파일로 작성하면 이를 분석하여 AWS 리소스를 자동으로 생성해주는 서비스이다.
+
+<br>
+
+## basic monitoring and detailed monitoring
+
+Basic monitoring은 launch template을 생성하거나 AWS Management Console을 사용하여 실행 구성을 생성할 때 사용된다.
+
+Detailed monitoring은 AWS CLI 또는 SDK를 사용하여 실행 구성을 생성할 때 기본적으로 실행된다.
+
+<br>
+
+## Amazon VPC console wizard
+
+Amazon VPC console wizard는 아래의 4가지 configuration을 제공한다.
+
+1. VPC with a single public subnet
+2. VPC with public and private subnets (NAT)
+3. VPC with public and private subnets and AWS Site-to-Site VPN access
+4. VPC with a **private** subnet only and AWS Site-to-Site VPN access - 네트워크가 인터넷에 노출되지 않고 Amzaon 인프라를 사용하여 네트워크를 클라우드로 확장하려는 경우 사용
+
+<br>
+
+## Tenancy
+
+launch configuration을 생성할 때, 인스턴스의 배치 tenancy는 null이고 instance tenancy는 VPC의 tenancy 특성에 의해 제어된다. launch configuration tenancy를 기본값으로 설정하고 VPC tenancy를 dedicated(전용)로 설정하면 인스턴스가 dedicated tenancy가 된다. 
+
+만약 launch configuration tenancy 또는 VPC tenancy가 dedicated로 설정되면, instance tenancy 또한 dedicated가 된다.
+
+| Tenancy Value | Description                                                  |
+| ------------- | ------------------------------------------------------------ |
+| `default`     | Your instance runs on shared hardware.                       |
+| `dedicated`   | Your instance runs on single-tenant hardware .               |
+| `host`        | Your instance runs on a Dedicated Host, which is an isolated server with configurations that you can control. |
+
+instance를 시작한 후에는 테넌시를 host에서 dedicated로, dedicated에서 host로 변경할 수 있다.
 
 
 
+<br>
 
+## SQS short polling vs long polling
 
+SQS는 대기열에서 메시지를 수신할 수 있는  short polling과 long polling을 제공한다. 
 
+기본적으로 대기열은 short polling이다. short polling을 사용하면 쿼리에서 메시지가 발견되지 않더라도 SQS는 응답을 즉시 전송한다.
 
+long polling을 사용하면 SQS가 요청에 지정된 최대 메시지 수까지 사용 가능한 메시지를 하나 이상 수집한 후 응답을 보낸다. 
 
+long polling을 사용하면 빈 수신 수를 줄일 수 있기 때문에 SQS 사용 비용을 줄일 수 있다.
 
+<br>
 
+## SQS message timer
 
+SQS message timer는 대기열에 추가되는 메시지의 초기 미표시 기간을 저정한다.
 
+<br>
 
+## SQS Visability timeout
 
+메시지를 받은 뒤 특정 시간 동안 다른 곳에서 동일한 메시지를 다시 꺼내볼 수 없게 하는 기능이다.
 
+<br>
+
+## S3 Glacier vault
+
+S3 Glacier vault는 archive를 저장하는 저장소이다.
+
+S3 Glacier vault lock은 각 S3 Glacier 볼트마다 볼트 잠금 정책을 사용해 규정 준수 제어 항목을 쉽게 배포하고 적용할 수 있는 기능이다. 볼트 잠금 정책에서는 ‘write once, read many’(WORM) 같은 제어 항목을 지정하여 앞으로 편집하지 못하도록 정책을 잠글 수 있습니다. 일단 잠긴 정책은 더 이상 변경할 수 없다.
+
+<br>
+
+## AWS Managed Microsoft AD vs AD Connector vs Simple AD
+
+AD Connector -> 사내 사용자가 Active Directory 자격 증명으로 AWS 응용 프로그램에 로그인할 수 있다면
+
+AWS Managed Microsoft AD -> 사용자가 5000명 이상이고 AWS 호스팅된 디렉토리와 사내 디렉토리 간에 신뢰 관계를 설정해야 하는 경우
+
+Simple AD -> 사용자가 5000명 이하이고 advanced Microsoft Active Directory와 같이 다른 도메인과 신뢰 관계가 필요하지 않는 경우
+
+<br>
+
+## Service Control Policy(SCP)
+
+SCP는 조직을 관리하는데 사용할 수 있는 정책 중 하나이다. SCP는 조직의 모든 계정에 대해 사용 가능한 최대 권한에 대한 중앙 집중식 제어를 제공하며, 계정이 조직의 액세스 제어 지침 내에서 유지되도록 보장한다.
 
 
 
