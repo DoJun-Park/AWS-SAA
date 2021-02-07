@@ -2,7 +2,7 @@
 
 S3 bucket은 자동으로 확장되므로 특정 양의 스토리지 공간을 계획하고 할당할 필요가 없다.
 
-S3는 서버리스 서비스이기 때문에 파일을 저장하는 서버를 직접 관리하거나 패치할 필요가 없으며 컨텐트를 저장하기만 하면 된다.
+S3는 **서버리스 서비스**이기 때문에 파일을 저장하는 서버를 직접 관리하거나 패치할 필요가 없으며 컨텐트를 저장하기만 하면 된다.
 
 S3 개체는 S3 개체를 업로드한 AWS 계정에서 소유한다.
 
@@ -10,19 +10,19 @@ S3를 사용하면 정적 웹 사이트를 호스팅할 수 있다. 반면 동�
 
 S3 bucket은 security group가 없다.
 
-S3는 데이터베이스 테이블에 대한 쿼리를 즉시 지원하는 데이터베이스 기술이 아니기 때문에 이 옵션은 잘못되었다.
+S3는 데이터베이스 테이블에 대한 쿼리를 즉시 지원하는 데이터베이스 기술이 아니다.
 
 <br>
 
 ## AWS S3 Storage 
 
-미사용 데이터와 전송중인 데이터에 encryption을 지원하는 S3 스토리지 클래스는 S3 Glacier이다.
+미사용 데이터와 전송중인 데이터에 **encryption**을 지원하는 S3 스토리지 클래스는 **S3 Glacier**이다.
 
 <br>
 
 ## OAI 
 
-OAI는 CloudFront 통해서만 S3 버킷의 파일을 사용할 수 있도록 하여 보안을 높인다.
+OAI는 **CloudFront** 통해서만 **S3 버킷**의 파일을 사용할 수 있도록 하여 보안을 높인다.
 
 <br>
 
@@ -46,7 +46,7 @@ Amazon S3 One Zone-IA는 액세스 빈도는 낮지만 필요한 경우 빠른 �
 
 ## Amazon S3 Standard -Infrequency Access
 
-Amazon S3 Standard -IA는 액세스 빈도는 낮지만 필요한 경우 빠른 액세스가 필요한 데이터용이다. 
+Amazon S3 Standard-IA는 액세스 빈도는 낮지만 필요한 경우 빠른 액세스가 필요한 데이터용이다. 
 
 Amazon S3 Standard -IA는 높은 내구성, 높은 처리량 및 짧은 대기 시간을 제공하며 GB당 스토리지 가격과 GB당 검색 비용을 낮춘다. 이러한 저비용과 고성능의 조합으로 장기 스토리지, 백업 및 재해 복구 파일의 데이터 저장소로 이상적이다. 하지만 가용성 영역 전체에서 중복 스토리지를 사용하기 때문에 S3 One Zone-IA보다 비용이 더 많이 든다.
 
@@ -60,7 +60,7 @@ AWS Direct Connect를 사용하면 네트워크와 AWS Direct Connect 위치 중
 
 AWS Direct Connect은 프로비저닝하는데 상당한 시간이 소요되고, 특정 사용 사례에 대한 overkill이다.
 
-Direct Connect를 백업 솔루션으로 사용하면 public internet이기 때문에 작동은 하지만 실패할 위험도 있다. 따라서 **Site to Site VPN**을 백업 연결로 사용한다.
+Direct Connect를 백업 솔루션으로 사용하면 **public internet**이기 때문에 작동은 하지만 실패할 위험도 있다. 따라서 **Site to Site VPN**을 백업 연결로 사용한다.
 
 <br>
 
@@ -86,9 +86,9 @@ CloudFront는 CDN(Content Delivery Network) 서비스로, 안전하고 확장 �
 
 CloudFront는 Edge Locations에서 콘텐츠를 **캐싱**함으로써 S3 버킷에 대한 로드를 줄이고 사용자가 콘텐츠를 요청할 때 빠르게 응답할 수 있도록 지원한다. S3에서 CloudFront까지 데이터 전송 수수료는 발생하지 않는다.
 
-CloudFront도 지리적으로 분산된 사용자에게 정적 컨텐츠를 배포할 수 있다.
+CloudFront도 **지리적으로 분산된 **사용자에게 정적 컨텐츠를 배포할 수 있다.
 
-CloudFront는 regional edge cache가 있어 모든 유형의 컨텐츠, 특히 시간이 지남에 따라 인기가 떨어지는 경향이 있는 컨텐츠에 유용하다.
+CloudFront는 **regional edge cache**가 있어 모든 유형의 컨텐츠, 특히 시간이 지남에 따라 인기가 떨어지는 경향이 있는 컨텐츠에 유용하다.
 
 <br>
 
@@ -96,7 +96,7 @@ CloudFront는 regional edge cache가 있어 모든 유형의 컨텐츠, 특히 �
 
 AWS Global Accelerator와 CloudFront는 AWS 글로벌 네트워크와  전 세계 엣지 위치를 사용하는 별도의 서비스이다. 
 
-CloudFront는 캐시 가능한 컨텐츠(이미지 및 비디오)와 동적 컨텐츠의 성능을 모두 향상시킨다. CloudFront는 <u>HTTP/RTMP</u> 프로토콜 기반 요청을 지원한다.
+CloudFront는 캐시 가능한 컨텐츠(이미지 및 비디오)와 동적 컨텐츠의 성능을 모두 향상시킨다. CloudFront는 **<u>HTTP/RTMP</u>** 프로토콜 기반 요청을 지원한다.
 
 AWS Global Accelerator는 하나 이상의 AWS Region에서 실행중인 애플리케이션에 가장자리에 있는 패킷을 프록시하여 <u>TCP 또는 **UDP**</u>를 통해 애플리케이션의 성능을 향상시킨다.
 
@@ -106,9 +106,9 @@ AWS Global Accelerator는 하나 이상의 AWS Region에서 실행중인 애플�
 
 CloudWatch event or CloudWatch alarm로 직간접적으로 lambda function을 트리거하는 것은 자원을 낭비하는 것이다. 
 
-그냥 EC2 Reboot CloudWatch Alarm Action을 통해 인스턴스를 reboot하면 된다. 
+그냥 EC2 Reboot **CloudWatch Alarm Action**을 통해 인스턴스를 reboot하면 된다. 
 
-CloudWatch 복구 옵션은 시스템 검사 실패에 대해서만 작동하며, 인스턴스 상태 검사 실패에 대해서는 작동하지 않는다.
+**CloudWatch 복구 옵션**은 **시스템 검사 실패**에 대해서만 작동하며, 인스턴스 상태 검사 실패에 대해서는 작동하지 않는다.
 
 CloudWatch event를 사용해서 EC2 인스턴스 복구를 직접 트리거할 수는 없다.
 
@@ -122,7 +122,7 @@ Amazon FSx for Lustre는 고성능 파일 시스템을 쉽고 효과적인 비�
 
 Amazon FSx for Lustre는 S3와 통합되어 Lustre 파일 시스템으로 데이터 세트를 쉽게 처리할 수 있다.
 
-⭐ High-performance, parallel and distributed => Amazon FSx for Lustre
+⭐ **High-performance**, **parallel** and **distributed** => **Amazon FSx for Lustre**
 
 <br>
 
@@ -142,14 +142,14 @@ Amazon Glue는 고객이 분석을 위해 데이터를 쉽게 준비하고 로�
 
 Application Load Balancer는 요청 수준(7계증)에서 작동하며, 요청 내용에 따라 트래픽을 대상(EC2 인스턴스, 컨테이너, IP 주소 및 람다 기능)에 자동으로 분산시킬 수 있다. 
 
-Application 과 Classic Load Balancer는 IP 주소가 아닌 고정 DNS(=URL)를 노출시킨다.
+Application Application Load Balancer와 Classic Load Balancer는 IP 주소가 아닌 **고정 DNS(=URL)**를 노출시킨다.
 
 만약 application이 여러 개별 서비스로 구성된 경우 Application Load Balancer는 ⭐**content-based**(요청 내용에 따라) 요청을 서비스로 라우팅할 수 있다.
 
 + 호스트 기반 라우팅 : 동일한 로드 밸런서에서 여러 도메인으로 라우팅할 수 있도록 HTTP 헤더의 호스트 필드를 기반으로 클라이언트 요청을 라우팅할 수 있다.
 + 경로 기반 라우팅 : HTTP 헤더의 URL 경로를 기준으로 클라이언트 요청을 라우팅할 수 있다.
 
-ALB는 HTTP 및 HTTPS 트래픽의 로드 밸런싱에 가장 적합하며 microservice 및 container를 포함한 최신 애플리케이션 아키텍처의 제공을 목표로 하는 advanced request routing을 제공한다.
+ALB는 **HTTP 및 HTTPS 트래픽의 로드 밸런싱**에 가장 적합하며 microservice 및 container를 포함한 최신 애플리케이션 아키텍처의 제공을 목표로 하는 advanced request routing을 제공한다.
 
 Cross-Zone Load Balancing이 가능하다.
 
@@ -161,7 +161,7 @@ Caching 기능이 없다.
 
 Network Load Balancer는 지연 시간이 짧고 초당 수백만 건의 요청으로 확장되는 높은 처리량 워크로드를 포함하는 사례에 적합
 
-Network Load Balancer는 **고정 IP**를 공용 웹에 노출하므로 이러한 IP를 사용하여 애플리케이션에 예측 가능한 방식으로 액세스할 수 있다.
+Network Load Balancer는 **고정 IP**를 공용 웹에 노출하므로 이러한 **IP**를 사용하여 애플리케이션에 예측 가능한 방식으로 액세스할 수 있다.
 
 Network Load Balancer는 **IP프로토콜 데이터**를 기반으로 Amazon VPC내의 대상에 대한 연결을 라우팅
 
@@ -187,11 +187,11 @@ NGINX는 많은 configuration 작업이 필요하다. 그래서 EC2에 NGINX 로
 
 인터넷 규모의 실시간 애플리케이션에 전원을 공급하기 위해 밀리초 미만의 latency를 제공하는 매우 빠른 메모리 내 데이터 저장소이다.
 
-Amazon ElastiCache for Redis는 replication, 고가용성, 클러스터 샤딩을 지원하고 AOF persistence를 이용한 데이터 내구성이 있다. 그리고 백업 및 복구 특징이 있다. Amazon ElastiCache for Redis도 HIPAA 적용 대상 서비스이다. (Memchached는 아님)
+Amazon ElastiCache for Redis는 replication, 고가용성, 클러스터 샤딩을 지원하고 **AOF persistence**를 이용한 데이터 내구성이 있다. 그리고 백업 및 복구 특징이 있다. Amazon ElastiCache for Redis는 **HIPAA 적용 대상 서비스**이다. (Memchached는 아님)
 
 + AOF(Append Only File) : 명령어로 실행될 때마다 기록되는 파일
 
-Amazon ElastiCache for Redis는 캐싱, 채팅/메시지, 게임 리더보드, 지리공간, 기계 학습, 미디어 스트리밍, 큐, 실시간 분석 및 세션 저장소와 같은 <u>실시간 트랜잭션 및 분석 처리</u> 사례에 적합한 솔루션이다.
+Amazon ElastiCache for Redis는 캐싱, 채팅/메시지, 게임 리더보드, 지리공간, 기계 학습, 미디어 스트리밍, 큐, 실시간 분석 및 세션 저장소와 같은 <u>**실시간 트랜잭션 및 분석 처리**</u> 사례에 적합한 솔루션이다.
 
 <br>
 
@@ -205,9 +205,9 @@ Amazon ElastiCache for Memcached는 메모리 내 캐시를 구현하여 액세�
 
 ## AWS OpsWorks
 
-AWS OpsWorks는 Chef 및 Puppet의 관리 인스턴스를 제공하는 configuration management 서비스이다.
+AWS OpsWorks는 **Chef 및 Puppet**의 관리 인스턴스를 제공하는 configuration management 서비스이다.
 
-Chef and Puppet은 코드를 사용하여 <u>서버 구성을 자동화</u>할 수 있는 자동화 플랫폼이다.
+Chef and Puppet은 **코드**를 사용하여 **서버 구성을 자동화**할 수 있는 자동화 플랫폼이다.
 
 OpsWorks를 사용하면 Chef and Puppet를 사용하여 EC2 인스턴스 또는 사내 컴퓨팅 환경에서 서버가 구성, 배포 및 관리되는 방법을 자동화할 수 있다.
 
@@ -219,15 +219,15 @@ Amazon RDS는 multi-AZ 배포를 사용하는 DB 인스턴스에 대한 고가�
 
 Multi-AZ 배포에서 Amazon RDS는 다른 가용성 영역에 synchronous 대기 복제본을 자동으로 프로비저닝하고 유지한다.
 
-관리자가 개입하지 않고도 데이터베이스 작업을 최대한 빨리 재개할 수 있도록 Amazon RDS에서 failover가 자동으로 처리된다. failover시에 Amazon RDS는 DB 인스턴스에 대한 CNAME을 전환하여 대기 상대를 기다리면 새로운 primary가 된다.
+관리자가 개입하지 않고도 데이터베이스 작업을 최대한 빨리 재개할 수 있도록 **Amazon RDS에서 failover가 자동으로 처리**된다. failover시에 Amazon RDS는 DB 인스턴스에 대한 **CNAME**을 전환하여 대기 상대를 기다리면 새로운 primary가 된다.
 
-Multi-AZ는 <u>URL은 같고 failover는 자동화되며 CNAME이 standby DB를 가리키도록 자동으로 업데이트됨을 의미</u>한다.
+Multi-AZ는 URL은 같고 failover는 자동화되며 CNAME이 standby DB를 가리키도록 자동으로 업데이트됨을 의미한다.
 
 <br>
 
-## transit gateway
+## Transit gateway
 
-transit gateway는 VPC를 상호 연결하거나 VPC를 **사내 네트워크**와 연결하는데 사용할 수 있는 네트워크 전송허브이다.
+transit gateway는 **VPC를 상호 연결**하거나 **VPC를 온프레미스 네트워크**와 연결하는데 사용할 수 있는 네트워크 전송허브이다.
 
 <br>
 
@@ -240,15 +240,15 @@ Transit VPC를 사용하여 여러 지역의 다양한 VPC와 고객 데이터 �
 ## Protection against accidental deletion of objects in Amazon S3
 
 + Enable versioning on the bucket 
-+ Enable MFA delete on the bucket - MFA 삭제를 수행하려면 Amazon S3 버킷에서 개체를 영국적으로 삭제하려면 보조 인증이 필요하다.
++ **Enable MFA** delete on the bucket - MFA 삭제를 수행하려면 Amazon S3 버킷에서 개체를 영국적으로 삭제하려면 보조 인증이 필요하다.
 
 <br>
 
 ## Redshift Spectrum
 
-Redshift Spectrum는 대규모 데이터set 저장 및 분석을 위해 설계된 <u>페타바이트</u> 규모의 클라우드 기반 데이터 웨어하우스 제품이다.
+Redshift Spectrum는 대규모 데이터 set 저장 및 분석을 위해 설계된 **페타바이트** 규모의 클라우드 기반 데이터 웨어하우스 제품이다.
 
-Redshift Spectrum을 사용하면 데이터를 Amazon Redshift 테이블에 로드할 필요 없이 S3의 파일에서 구조화 및 반구조화된 데이터를 효율적으로 쿼리하고 검색할 수 있다.
+Redshift Spectrum을 사용하면 데이터를 Amazon Redshift 테이블에 로드할 필요 없이 **S3의 파일**에서 구조화 및 반구조화된 데이터를 효율적으로 쿼리하고 검색할 수 있다.
 
 <br>
 
@@ -286,7 +286,7 @@ Amazon API Gateway는 계정의 모든 API에 대한 정상 상태 속도 및 �
 
 ## VPC Sharing
 
-VPC Sharing을 통해 여러 AWS 계정이 EC2 인스턴스, RDS 인스턴스, Redshift 클러스터 및 람다 함수와 같은 애플리케이션 리소스를 고유 및 중앙 관리되는 VPC로 생성할 수 있다. 이 설정을 위해 VPC를 소유하는 계정은 AWS Organization의 동일한 조직에 속한 다른 계정과 하나 이상의 서브넷을 공유한다. 서브넷이 공유되면 참가자는 공유된 서브넷에서 응용 프로그램 리소스를 보거나 수정 또는 삭제할 수 있다.
+VPC Sharing을 통해 여러 AWS 계정이 EC2 인스턴스, RDS 인스턴스, Redshift 클러스터 및 람다 함수와 같은 애플리케이션 리소스를 고유 및 중앙 관리되는 VPC로 생성할 수 있다. 이 설정을 위해 VPC를 소유하는 계정은 AWS Organization의 동일한 조직에 속한 다른 계정과 하나 이상의 **서브넷**을 공유한다. 서브넷이 공유되면 참가자는 공유된 서브넷에서 응용 프로그램 리소스를 보거나 수정 또는 삭제할 수 있다.
 
 주의할 점은 <u>소유자 계정은 VPC 자체를 공유할 수는 없고 **서브넷**을 통해 공유해야 한다.</u>
 
@@ -294,7 +294,7 @@ VPC Sharing을 통해 여러 AWS 계정이 EC2 인스턴스, RDS 인스턴스, R
 
 ## AWS credentials on the EC2
 
-EC2 인스턴스에서 AWS 자격 증명을 유지하는 것은 잘못된 보안 관행이다. 대신 IAM role을 사용하여 EC2 인스턴스에서 실행되는 응용 프로그램의 임시 자격 증명을 관리한다. 이 role은 응용 프로그램이 다른 AWS 리소스를 호출할 때 사용할 수 있는 임시 사용 권한을 제공한다.
+EC2 인스턴스에서 AWS 자격 증명을 유지하는 것은 잘못된 보안 관행이다. 대신 **IAM role**을 사용하여 EC2 인스턴스에서 실행되는 응용 프로그램의 임시 자격 증명을 관리한다. 이 role은 응용 프로그램이 다른 AWS 리소스를 호출할 때 사용할 수 있는 임시 사용 권한을 제공한다.
 
 <br>
 
@@ -306,9 +306,9 @@ ASG로 생성된 인스턴스는 기존 인스턴스의 데이터를 자동으�
 
 Auto Scaling 그룹 내에서 실행중인 인스턴스의 상태가 좋지 않은것으로 확인되면 해당 인스턴스는 종류하고 새 인스턴스를 실행하다.
 
-Auto Scaling은 한 region내의 여러 AZ에 걸쳐 ASG를 포괄하여 지리적 이중화의 안전성과 신뢰성을 활용할 수 있다. 하나의 AZ가비정상적이거나 사용할 수 없게 된다면 Auto Scaling은  영향을 받지 않는 AZ에서 새 인스턴스를 시작한다. 애플리케이션은 매우 중요하며 이를 지원하기 위한 안정적인 아키텍처가 필요하므로, EC2 인스턴스는 중단 없는 서비스를 위해 최소 두 개의 AZ로 유지되어야 한다.
+Auto Scaling은 한 **region내의 여러 AZ**에 걸쳐 ASG를 포괄하여 지리적 이중화의 안전성과 신뢰성을 활용할 수 있다. 하나의 AZ가 비정상적이거나 사용할 수 없게 된다면 Auto Scaling은  영향을 받지 않는 AZ에서 새 인스턴스를 시작한다. 애플리케이션은 매우 중요하며 이를 지원하기 위한 안정적인 아키텍처가 필요하므로, EC2 인스턴스는 중단 없는 서비스를 위해 **최소 두 개의 AZ**로 유지되어야 한다.
 
-동시에 여러 정책이 ASG에 확장 또는 축소를 지시할 수 있다. 이때 Auto Scaling은 가장 큰 용량을 제공하는 정책을 선택한다.
+동시에 여러 정책이 ASG에 확장 또는 축소를 지시할 수 있다. 이때 Auto Scaling은 **가장 큰 용량을 제공하는 정책을 선택**한다.
 
 고가용성(HA)을 위한 최소 용량은 **2**개이다.
 
@@ -316,7 +316,7 @@ Auto Scaling은 한 region내의 여러 AZ에 걸쳐 ASG를 포괄하여 지리�
 
 ## Auto Scaling group lifecycle hook
 
-Auto Scaling group lifecycle hook을 사용하면 auto scaling 그룹이 인스턴스를 시작하거나 종료할 때 사용자 지정 작업을 수행할 수 있다.
+Auto Scaling group lifecycle hook을 사용하면 auto scaling 그룹이 **인스턴스를 시작하거나 종료할 때 사용자 지정 작업을 수행**할 수 있다.
 
 <br>
 
@@ -370,7 +370,7 @@ Cluster placement groups는 네트워크 지연 시간이 짧거나 네트워크
 
 ## Spot Instance
 
-Spot Instance는 가장 저렴한 인스턴스로 장애에 대해 복원력이 뛰어난 워크로드에 유용하다.
+Spot Instance는 **가장 저렴한 인스턴스**로 장애에 대해 복원력이 뛰어난 워크로드에 유용하다.
 
 Spot Instance는 중요한 작업(critical job) 또는 database에 적합하지 않다.
 
@@ -514,7 +514,7 @@ Lambda funciton은 실행당 최대 15분까지 실행되도록 구성할 수 �
 
 ## VPN CloudHub
 
-AWS 사이트 간 VPN 연결이 여러 개인 경우 VPN CloudHub를 사용하여 사이트 간에 보안 통신을 제공할 수 있다.
+다수의 Site-to-Site VPN 연결을 사용하는 경우 VPN CloudHub를 사용하여 사이트 간에 보안 통신을 제공할 수 있다.
 
 가상 private gateway에 direct connect 연결을 사용하는 사이트도 AWS VPN CloudHub에 속할 수 있다.
 
@@ -530,7 +530,7 @@ AWS Storage Gateway는 on-premise 데이터와 S3에 있는 클라우드 데이�
 
   File Gateway는 애플리케이션 데이터 파일과 백업 이미지를 S3 클라우드 스토리지에 내구성이 뛰어난 개체로 저장하기 위해 클라우드에 원활하게 연결할 수 있는 방법을 제공한다.
 
-  **로컬 캐싱**을 통해 S3의 데이터에 대한 **SMB(Server Message Block)** 또는 NFS 기반 액세스를 제공한다.
+  **로컬 캐싱**을 통해 S3의 데이터에 대한 **SMB(Server Message Block)** 또는 **NFS** 기반 액세스를 제공한다.
 
   File access / NFS => File Gateway
 
@@ -560,7 +560,7 @@ default로 모든 DynamoDB 테이블은 CloudTrail 로그에 기록되지 않는
 
 ## DynamoDB Stream
 
-DynamoDB Stream은 DynamoDB 테이블의 항목 변경에 대한 정보의 순서 흐름이다. 테이블에 발생하는 모든 변경 내용의 스트림이 포함된다.
+DynamoDB Stream은 DynamoDB 테이블의 항목 변경에 대한 **정보의 순서 흐름**이다. 테이블에 발생하는 모든 변경 내용의 스트림이 포함된다.
 
 <br>
 
@@ -568,7 +568,7 @@ DynamoDB Stream은 DynamoDB 테이블의 항목 변경에 대한 정보의 순�
 
 DAX는 DynamoDB를 위한 완전히 관리되고 가용성이 높은 내장 메모리 **캐시**로서 초당 수백만 번의 요청에서도 밀리초에서 마이크로초까지 최대 10배의 성능 향항을 제공한다.
 
-DAX는 DynamoDB **읽기**를 기본적으로 캐시하는데 사용된다. (쓰기에는 도움이 되지 않는다.)
+DAX는 DynamoDB **읽기**를 기본적으로 **캐시**하는데 사용된다. (쓰기에는 도움이 되지 않는다.)
 
 <br>
 
