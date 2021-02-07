@@ -833,6 +833,14 @@ AWS CloudFormation는 사용하려는 AWS 리소스를 JSON이나 YAML형식으�
 
 <br>
 
+## AWS CloudFormation StackSet
+
+AWS CloudFormation StackSet은 단일 작업으로 여러 계정 및 지역에 걸쳐 스택을 생성, 업데이트 또는 삭제할 수 있도록 지원함으로써 스택의 기능을 확장한다. stackset를 사용하면 단일 AWS CloudFormation 템플릿을 사용하여 여러 지역에 걸쳐 AWS 계정에 스택을 생성할 수 있다.
+
+그냥 stack을 사용해서는 AWS 계정 및 지역에 동일한 템플릿을 배포할 수 없다.
+
+<br>
+
 ## basic monitoring and detailed monitoring
 
 Basic monitoring은 launch template을 생성하거나 AWS Management Console을 사용하여 실행 구성을 생성할 때 사용된다.
@@ -915,6 +923,22 @@ Simple AD -> 사용자가 5000명 이하이고 advanced Microsoft Active Directo
 ## Service Control Policy(SCP)
 
 SCP는 조직을 관리하는데 사용할 수 있는 정책 중 하나이다. SCP는 조직의 모든 계정에 대해 사용 가능한 최대 권한에 대한 중앙 집중식 제어를 제공하며, 계정이 조직의 액세스 제어 지침 내에서 유지되도록 보장한다.
+
++ SCP는 root 사용자를 포함하여 연결된 계정의 모든 사용자 및 역할에 영향을 미친다.
++ 사용자 또는 역할에 해당 SCP에 의해 허용되지 않거나 명시적으로 거부된 작업에 대한 액세스 권한을 부여하는 IAM 권한 정책이 있는 경우 사용자 또는 역할은 해당 작업을 수행할 수 없다.
++ SCP는 서비스 관련 역할(service-linked role)에 영향을 주지 않는다.
+
+<br>
+
+
+
+
+
+
+
+
+
+
 
 
 
