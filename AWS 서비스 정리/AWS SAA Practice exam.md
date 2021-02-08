@@ -763,7 +763,7 @@ AWS Transfer Family는 Amazon S3로 직접 파일 전송을 완벽하게 관리�
 
 <br>
 
-## Automtic recovery
+## Automatic recovery
 
 EC2 인스턴스가 문제로 인해 손상될 경우 Cloudwatch를 통해 자동으로 복구될 수 있다.
 
