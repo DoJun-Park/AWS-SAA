@@ -12,6 +12,14 @@ S3 bucket은 security group가 없다.
 
 S3는 데이터베이스 테이블에 대한 쿼리를 즉시 지원하는 데이터베이스 기술이 아니다.
 
+인터넷에서 데이터를 전송할 때, **S3 데이터 전송 요금은 없다**. 또한 **S3TA에서는 가속된 전송에 대해서만 요금을 지불**한다.
+
+<br>
+
+## AWS S3 Life cycle transition
+
+![스크린샷 2021-02-08 오후 10.35.15](/Users/dojun/Library/Application Support/typora-user-images/스크린샷 2021-02-08 오후 10.35.15.png) 
+
 <br>
 
 ## AWS S3 Storage 
@@ -33,6 +41,14 @@ OAI는 **CloudFront** 통해서만 **S3 버킷**의 파일을 사용할 수 있�
   ​							 - 파일의 크기가 100MB보다 크면 권장하고, 5GB보다 크면 무조건 사용
 
 + S3 Transfer Acceleration (upload only) - Increase transfer speed by transferring file to an AWS edge location which will forward the data to the S3 bucket in the target region
+
+<br>
+
+## Amazon S3 Standard
+
+Amazon S3 Standard는 자주 액세스하는 데이터를 위한 높은 내구성, 가용성 및 성능 객체 스토리지를 제공한다. 
+
+최소 스토리지 지속 시간과 검색 비용이 없다. 문제에서 스토리지 지속 시간이 30일 이내인 경우에는 S3 Standard가 좋은 선택지이다.
 
 <br>
 
@@ -89,6 +105,17 @@ CloudFront는 Edge Locations에서 콘텐츠를 **캐싱**함으로써 S3 버킷
 CloudFront도 **지리적으로 분산된 **사용자에게 정적 컨텐츠를 배포할 수 있다.
 
 CloudFront는 **regional edge cache**가 있어 모든 유형의 컨텐츠, 특히 시간이 지남에 따라 인기가 떨어지는 경향이 있는 컨텐츠에 유용하다.
+
+<br>
+
+## CloudFront를 통해 제한된 파일에 액세스 제한
+
++ **Use CloudFront signed URLs**
+  + signed URLs에는 콘텐츠에 대한 액세스를 보다 효과적으로 제어할 수 있는 추가 정보(예: 만료 날짜 및 시간)가 포함되어 있다.
++ **Use CloudFront signed cookies
+  + CloudFront signed cookies를 사용하면 현재 URL을 변경하지 않으려는 경우 또는 웹 사이트의 구독자 영역에 있는 모든 파일에 대한 액세스를 제공하려는 경우 콘텐츠에 액세스할 수 있는 사용자를 제어할 수 있다.
+
+HTTPS는 개인 콘텐츠에 대한 액세스를 제한할 수 없다.
 
 <br>
 
@@ -154,6 +181,8 @@ ALB는 **HTTP 및 HTTPS 트래픽의 로드 밸런싱**에 가장 적합하며 m
 Cross-Zone Load Balancing이 가능하다.
 
 Caching 기능이 없다.
+
+ALB는 EC2 기반 health check를 할 수 없다.
 
 <br>
 
@@ -223,6 +252,20 @@ Multi-AZ 배포에서 Amazon RDS는 다른 가용성 영역에 synchronous 대�
 
 Multi-AZ는 URL은 같고 failover는 자동화되며 CNAME이 standby DB를 가리키도록 자동으로 업데이트됨을 의미한다.
 
+Multi-AZ는 synchronous(동기식) 복제를 따르고 단일 영역 내에서 최소 두 개의 가용성 영역에 걸쳐 있다. 
+
+Read replica는 asynchronous(비동기식) 복제를 따르고 AZ, Cross-AZ, or Cross-Region 내에 일을 수 있다.
+
+| Multi-AZ deployments    | Multi-Region deployments | Read replicas            |
+| ----------------------- | ------------------------ | ------------------------ |
+| synchronous replication | synchronous replication  | Asynchronous replication |
+
+<br>
+
+## Database Engine level upgrade for an RDS DB 
+
+데이터베이스 엔진 레벨로 업그레이드하려면 다운타임이 필요하다. RDS DB 인스턴스가 Multi-AZ 배포를 사용하는 경우에는 주(primary) DB 인스턴스와 대기(standby) DB 인스턴스가 동시에 업그레이드된다.
+
 <br>
 
 ## Transit gateway
@@ -266,6 +309,8 @@ Kinesis Data Streams는 audio file을 읽을 수 없다.
 
 Amazon Kinesis Data Streams는 대규모 확장 가능하고 내구성이 뛰어난 실시간 데이터 스트리밍 서비스이다.
 
+사용자는 수신되는 데이터 스트림의 예상 볼륨을 처리하기 위해 적절한 수의 샤드를 수동으로 프로비저닝해야 한다. 때문에 데이터의 양에 따라 용량을 수동으로 프로비저닝해야 하는 경우 사용하지 않는다.
+
 <br>
 
 ## Amazon Kinesis Data Firehose
@@ -281,6 +326,8 @@ Kinesis Firehose는 S3, Redshift, Elasticsearch or Splunk에만 작성할 수 �
 Amazon API Gateway는 너무 많은 요청에 의해 API가 압도되는 것을 방지하기 위해 토큰 버킷 알고리즘을 사용하여 요청을 조절한다.
 
 Amazon API Gateway는 계정의 모든 API에 대한 정상 상태 속도 및 버스트에 대한 제한을 설정한다,
+
+API Gateway는 상태 비저장(stateless) 클라이언트-서버 통신을 활성화하고, WebSocket API는 상태 저장(stateful) 클라이언트-서버 통신을 활성화한다.
 
 <br>
 
@@ -486,6 +533,8 @@ Amazon Aurora Global Database는 전 세계적으로 분산된 애플리케이�
 
 AMI는 자신이 생성된 **지역**에 바운딩되어 있다. 때문에 다른 지역에서 AMI를 사용하기 위해서는 **지역별로 AMI를 복사**해야 한다.
 
+AMI는 snapshot을 기반으로 하기 때문에 다른 영역에서 자동으로 snapshot을 생성한다. 
+
 <br>
 
 ## Golden AMI
@@ -509,6 +558,8 @@ Lambda는 다른 계정에도 write할 수 있다.
 Lambda funciton은 실행당 최대 15분까지 실행되도록 구성할 수 있다. 시간초과(timeout)를 1초에서 15분 사이의 값으로 설정할 수 있다.
 
 만약 runtime에 문제가 있을 경우 lambda function의 실행이 실패한다.
+
+lambda는 지역별로 계정당 1000개의 동시 실행을 지원한다. 만약 이러한 동시성(consistency) 할당량을 초과해서 제한을 높으려면 AWS 지원팀에 문의해야 한다.
 
 <br>
 
@@ -691,6 +742,14 @@ SSE-C를 사용하면 **시작 시 암호화 키를 제공**하지만 AWS에서 
 
 <br>
 
+## SSE-KMS
+
+SSE-KMS는 안전한 고가용성 하드웨어와 소프트웨어를 결합하여 클라우드용 키 관리 시스템을 제공하는 서비스이다.
+
+SSE-KMS는 **감사 추적(audit trail)**이 가능하다.
+
+<br>
+
 ## Cloud Formation
 
 Cloud Formation은 AWS 리소스를 자동으로 생성해주는 서비스이다.
@@ -808,6 +867,13 @@ Amazon SWF는 오케스트레이션 로직을 완벽하게 제어할 수 있지�
 <br>
 
 ## target tracking scaling group vs step scaling group
+
+두 정책 모두 **CloudWatch alarm**이 울릴 때만 인스턴스를 프로비저닝하는데 사용된다.
+
+target tracking scaling 사용하는 경우
+
++ Auto Scaling 그룹의 평균 총 CPU 사용량을 40%로 유지하는 경우
++ Application Load Balancer 대상 그룹의 대상 1개당 요청 수를 Auto Scaling 그룹에 필요한 1000개로 유지하는 경우
 
 갑작스런 spike를 처리할 때는 필요한 인스턴스 수를 정확하게 계산할 수 있는 target tracking 정책이 step정책보다 더 효율적이다.
 
