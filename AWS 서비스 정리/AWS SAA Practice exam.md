@@ -72,7 +72,7 @@ Amazon S3 Standard -IA는 높은 내구성, 높은 처리량 및 짧은 대기 �
 
 AWS Direct Connect는 사내에서 AWS로 전용 네트워크 연결을 쉽게 설정할 수 있는 클라우드 서비스 솔루션이다. 
 
-AWS Direct Connect를 사용하면 네트워크와 AWS Direct Connect 위치 중 하나 간에 전용 네트워크 연결을 설정할 수 있다. 
+AWS Direct Connect를 사용하면 네트워크와 AWS Direct Connect 위치 중 **하나 간에 전용 네트워크 연결**을 설정할 수 있다. 
 
 AWS Direct Connect은 프로비저닝하는데 상당한 시간이 소요되고, 특정 사용 사례에 대한 overkill이다.
 
@@ -80,9 +80,19 @@ Direct Connect를 백업 솔루션으로 사용하면 **public internet**이기 
 
 <br>
 
+## AWS Direct Connect plus VPN
+
+AWS Direct Connect plus VPN을 사용하면 **하나 이상**의 AWS Direct Connect 전용 네트워크 연결을 Amazon VPC VPN과 결합할 수 있다.
+
+**AWS Direct Connect 자체는 데이터 센터와 AWS 클라우드 간에 암호화된 연결을 제공할 수 없다**. 때문에 **암호화를 필요**로 한다면 **AWS Direct Connect plus VPN**을 사용한다.
+
+<br>
+
 ## AWS Site to Site VPN
 
 AWS Site to Site VPN를 사용하면 사내 네트워크 또는 지사 사이트를 Amazon VPC에 **안전**하게 연결할 수 있다.
+
+AWS Site to Site VPN은 low latency와 high throughput connection을 지원할 수 없다.(transit gateway 마찬가지) / Direct connect는 가능
 
 <br>
 
@@ -373,6 +383,12 @@ lifecycle hook을 사용하면 auto scaling 그룹이 인스턴스를 시작하�
 
 <br>
 
+## Rebalancing Activities
+
+Auto scaling과 달리 **rebalancing activity**는 EC2 auto scaling은 **이전 인스턴스를 종료하기 전에 새 인스턴스를 시작**하므로 재조정으로 인해 애플리케이션의 성능이나 가용성이 저하되지 않는다.
+
+<br>
+
 ## EC2 instance meta data
 
 EC2 instance meta data는 실행 중인 인스턴스를 구성하거나 관리하는데 사용할 수 있는 인스턴스에 대한 데이터이다.
@@ -435,6 +451,8 @@ Active spot request를 취소해도 연결된 인스턴스는 종료되지 않�
 
 FIFO queue는 일괄 처리(batching)를 통해 최대 초당 3000개의 메시지를 지원하고, **일괄 처리 없이**는 **초당 300개**의 메시지를 지원한다.
 
+작업당 일괄 처리할 메세지와 지원하는 메세지의 비는 1:300이다. 만약 FIFO 대기열에서 초당 최대 1200개의 메시지를 지원할 수 있도록 하려면 작업당 4개의 메시지를 처리해야 한다.
+
 FIFO queue의 이름은 .fifo 접미사로 끝나야 한다.
 
 <br>
@@ -469,13 +487,15 @@ Application Load balancer와 함께 사용될 경우 ACL의 규칙에 따라 요
 
 AWS Snowmobile은 매우 많은 양의 데이터를 AWS로 이동하는 데 사용되는 엑사바이트 규모의 데이터 전송 서비스이다. 세미 트레일러 트럭을 통해 최대 100PB까지 전송할 수 있다.
 
-10PB 이상의 대규모 데이터셋을 이동할 때 권장하고, 10PB미만 또는 여러 위치에 분산되어 있는 데이터셋의 경우 Snowball을 사용한다.
+10PB 이상의 대규모 데이터셋을 이동할 때 권장하고, **10PB미만** 또는 **여러 위치에 분산**되어 있는 데이터셋의 경우 **Snowball**을 사용한다.
 
 <br>
 
 ## AWS Snowball
 
 AWS Snowball 서비스는 물리적 스토리지 장치를 사용하여 Amazon S3와 고객의 온사이트 데이터 스토리지 위치 간에 대량의 데이터를 인터넷 속도보다 빠른 속도로 전송한다.
+
+Snowball Edge Storage Optimized 장치는 **80TB**의 데이터를 처리할 수 있다.
 
 <br>
 
@@ -798,6 +818,8 @@ SNI를 통해 AWS는 동일한 ALB로 **두 개 이상의 인증서**를 쉽게 
 
 + Connection Draining : ELB가 기존 연결을 열어두면서 등록 취소 중이거나 상태가 좋지 않은 인스턴스에 대한 요청 기능을 중지하도록 할 때 사용.
 
+ELB는 들어오는 트래픽을 여러 AZ에서 여러 대상에 걸쳐 분산시키고 정상 대상만 트래픽을 수신하도록 보장한다. 다른 지역에 배포된 대상에 대해 수신 트래픽을 배포할 순 없다.
+
 <br>
 
 ## CNAME vs Alias
@@ -993,6 +1015,36 @@ SCP는 조직을 관리하는데 사용할 수 있는 정책 중 하나이다. S
 + SCP는 root 사용자를 포함하여 연결된 계정의 모든 사용자 및 역할에 영향을 미친다.
 + 사용자 또는 역할에 해당 SCP에 의해 허용되지 않거나 명시적으로 거부된 작업에 대한 액세스 권한을 부여하는 IAM 권한 정책이 있는 경우 사용자 또는 역할은 해당 작업을 수행할 수 없다.
 + SCP는 서비스 관련 역할(service-linked role)에 영향을 주지 않는다.
+
+<br>
+
+## EBS Volume Type
+
+ST1과 SC1 볼륨 유형은 부팅 볼륨으로 사용할 수 없다. / GP2, IO1, instance Store는 부팅 볼륨으로 사용할 수 있다.
+
+<br>
+
+## AWS account root user security recommendations
+
+1. Use a strong password to help protect account-level access to the AWS Management Console.
+
+   강력한 암호를 사용하여 AWS Management Console에 대한 계정 수준 액세스를 보호합니다.
+
+2. Never share your AWS account root user password or access keys with anyone. 
+
+   AWS 계정 루트 사용자 암호 또는 액세스 키를 다른 사람과 공유하지 마십시오.
+
+3. If you do have an access key for your AWS account root user, delete it. If you must keep it, rotate (change) the access key regularly. You should not encrypt the access keys and save them on Amazon S3.
+
+   AWS 계정 루트 사용자에 대한 액세스 키가 있는 경우 삭제합니다. 보관해야 하는 경우 액세스 키를 정기적으로 회전(변경)합니다. 액세스 키를 암호화하여 Amazon S3에 저장해서는 안 됩니다.
+
+4. If you don't already have an access key for your AWS account root user, don't create one unless you absolutely need to.
+
+   AWS 계정 루트 사용자에 대한 액세스 키가 아직 없는 경우 반드시 필요한 경우가 아니면 해당 키를 생성하지 마십시오.
+
+5. Enable AWS multi-factor authentication (MFA) on your AWS account root user account.
+
+   AWS 계정 루트 사용자 계정에서 AWS MFA(다단계 인증)를 사용하도록 설정합니다.
 
 <br>
 
