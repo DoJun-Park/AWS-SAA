@@ -6,13 +6,19 @@ S3는 **서버리스 서비스**이기 때문에 파일을 저장하는 서버�
 
 S3 개체는 S3 개체를 업로드한 AWS 계정에서 소유한다.
 
-S3를 사용하면 정적 웹 사이트를 호스팅할 수 있다. 반면 동적 웹 사이트를 호스팅하기 위해서는 다른 리소스를 사용해야 한다.
+S3를 사용하면 **정적 웹 사이트를 호스팅**할 수 있다. 반면 동적 웹 사이트를 호스팅하기 위해서는 다른 리소스를 사용해야 한다.
 
 S3 bucket은 security group가 없다.
 
 S3는 데이터베이스 테이블에 대한 쿼리를 즉시 지원하는 데이터베이스 기술이 아니다.
 
 인터넷에서 데이터를 전송할 때, **S3 데이터 전송 요금은 없다**. 또한 **S3TA에서는 가속된 전송에 대해서만 요금을 지불**한다.
+
+S3는 아래의 대상에 이벤트를 게시할 수 있다.
+
++ Amazon SNS
++ Amazon SQS
++ AWS Lambda
 
 <br>
 
@@ -25,6 +31,17 @@ S3는 데이터베이스 테이블에 대한 쿼리를 즉시 지원하는 데�
 ## AWS S3 Storage 
 
 미사용 데이터와 전송중인 데이터에 **encryption**을 지원하는 S3 스토리지 클래스는 **S3 Glacier**이다.
+
+<br>
+
+## S3 Websites
+
+Amazon S3에서 정적 웹 사이트를 호스팅하려면 웹 사이트 호스팅을 위해 Amazon S3 버킷을 구성한 다음 웹 사이트 콘텐츠를 버킷에 업로드한다.
+
+지역에 따라 S3 Website endpoint는 다음 두 가지 형식을 따른다;
+
++ 웹 사이트 대시(-) -> <bucket-name>.s3-website.<Region>.amazonaws.com
++ dot(.) -> <bucket-name>.s3-website-<Region>.amazonaws.com
 
 <br>
 
@@ -65,6 +82,12 @@ Amazon S3 One Zone-IA는 액세스 빈도는 낮지만 필요한 경우 빠른 �
 Amazon S3 Standard-IA는 액세스 빈도는 낮지만 필요한 경우 빠른 액세스가 필요한 데이터용이다. 
 
 Amazon S3 Standard -IA는 높은 내구성, 높은 처리량 및 짧은 대기 시간을 제공하며 GB당 스토리지 가격과 GB당 검색 비용을 낮춘다. 이러한 저비용과 고성능의 조합으로 장기 스토리지, 백업 및 재해 복구 파일의 데이터 저장소로 이상적이다. 하지만 가용성 영역 전체에서 중복 스토리지를 사용하기 때문에 S3 One Zone-IA보다 비용이 더 많이 든다.
+
+<br>
+
+## AWS S3 Intelligent-Tiering
+
+AWS S3 Intelligent-Tiering 스토리지 클래스는 성능에 영향을 미치거나 운영 오버헤드 없이 가장 비용 효율적인 액세스 계층으로 데이터를 자동으로 이동하여 비용을 최적화하도록 설계되었다. 이 기능은 개체를 빈번한 액세스에 최적화된 계층과 간헐적인 액세스에 최적화된 저비용 계층의 두 가지 액세스 계층에 저장하는 방식으로 작동한다.
 
 <br>
 
@@ -153,9 +176,9 @@ CloudWatch event를 사용해서 EC2 인스턴스 복구를 직접 트리거할 
 
 ## Amazon FSx for Lustre
 
-Amazon FSx for Lustre는 고성능 파일 시스템을 쉽고 효과적인 비용으로 생성 및 실행할 수 있다. 이는 병렬 및 분산 방식의 파일 시스템이다.
+Amazon FSx for Lustre는 **고성능 파일 시스템**을 쉽고 효과적인 비용으로 생성 및 실행할 수 있다. 이는 병렬 및 분산 방식의 파일 시스템이다.
 
-머신 러닝, 고성능 컴퓨팅(HPC), 비디오 처리와 같은 워크로드에 사용된다.
+머신 러닝, 고성능 컴퓨팅(HPC), 비디오 처리와 같은 워크로드에 사용된다. 
 
 Amazon FSx for Lustre는 S3와 통합되어 Lustre 파일 시스템으로 데이터 세트를 쉽게 처리할 수 있다.
 
@@ -198,7 +221,7 @@ ALB는 EC2 기반 health check를 할 수 없다.
 
 ## Network Load Balancer(NLB)
 
-Network Load Balancer는 지연 시간이 짧고 초당 수백만 건의 요청으로 확장되는 높은 처리량 워크로드를 포함하는 사례에 적합
+Network Load Balancer는 **지연 시간이 짧고** 초당 수백만 건의 요청으로 확장되는 **높은 처리량** 워크로드를 포함하는 사례에 적합
 
 Network Load Balancer는 **고정 IP**를 공용 웹에 노출하므로 이러한 **IP**를 사용하여 애플리케이션에 예측 가능한 방식으로 액세스할 수 있다.
 
@@ -207,6 +230,8 @@ Network Load Balancer는 **IP프로토콜 데이터**를 기반으로 Amazon VPC
 Network Load Balancer에서 인스턴스 ID를 사용하여 대상을 지정할 경우 트래픽은 인스턴스의 primary 네트워크 인터페이스에 지정된 primary **private** IP 주소를 사용하여 인스턴스로 라우팅된다. (트래픽을 인스턴스로 라우팅하는데 public IP 주소를 사용할 수 없다.)
 
 Cross-Zone Load Balancing이 불가능하다.
+
+Bastian Host는 포트 22의 TCP 기반 프로토콜인 SSH를 사용하고 있고, NLB는 TCP 트래픽을 지원하므로 같이 사용될 수 있다.
 
 <br>
 
@@ -238,7 +263,7 @@ Amazon ElastiCache for Redis는 캐싱, 채팅/메시지, 게임 리더보드, �
 
 Amazon ElastiCache for Memcached는 Memcached와 호환가능한 인메모리 key-value 저장소 서비스로 캐시 또는 데이터 저장소로 사용할 수 있다.
 
-Amazon ElastiCache for Memcached는 메모리 내 캐시를 구현하여 액세스 latency를 줄이고, 처리량을 증가시키며, 관계형 또는 NoSQL 데이터베이스의 로드를 줄이는데 매우 적합하다. Amazon ElastiCache for Memcached는 HIPAA에 적합하지 않다.
+Amazon ElastiCache for Memcached는 메모리 내 캐시를 구현하여 액세스 latency를 줄이고, 처리량을 증가시키며, **관계형** 또는 **NoSQL** 데이터베이스의 로드를 줄이는데 매우 적합하다. Amazon ElastiCache for Memcached는 HIPAA에 적합하지 않다.
 
 <br>
 
@@ -319,13 +344,15 @@ Kinesis Data Streams는 audio file을 읽을 수 없다.
 
 Amazon Kinesis Data Streams는 대규모 확장 가능하고 내구성이 뛰어난 실시간 데이터 스트리밍 서비스이다.
 
-사용자는 수신되는 데이터 스트림의 예상 볼륨을 처리하기 위해 적절한 수의 샤드를 수동으로 프로비저닝해야 한다. 때문에 데이터의 양에 따라 용량을 수동으로 프로비저닝해야 하는 경우 사용하지 않는다.
+사용자는 수신되는 데이터 스트림의 예상 볼륨을 처리하기 위해 **적절한 수의 샤드를 수동으로 프로비저닝**해야 한다. 때문에 데이터의 양에 따라 용량을 자동으로 프로비저닝해야 하는 경우 사용하지 않는다.
+
+Kinesis Data Stream은 애플리케이션에 대한 데이터를 여러 shard로 제공하지만, 실제로 생산자 수보다 훨씬 적은 수의 소비자만 사용할 수 있다. 때문에 만약 생산자 수와 소비자 수가 동일해야 한다면 적절하지 않은 선택지이다.
 
 <br>
 
 ## Amazon Kinesis Data Firehose
 
-Kinesis Firehose는 데이터 처리량에 대응하여 자동으로 확장되며 지속적인 관리가 필요 없는 완전관리형 서비스이다. 데이터를 로드하기 전에 데이터를 배치, 압축, 변환 및 암호화할 수 있으므로 대상에서 사용되는 스토리지 양을 최소화하고 보안을 강화할 수 있다.
+Kinesis Firehose는 데이터 처리량에 대응하여 **자동으로 확장**되며 지속적인 관리가 필요 없는 완전관리형 서비스이다. 데이터를 로드하기 전에 데이터를 배치, 압축, 변환 및 암호화할 수 있으므로 대상에서 사용되는 스토리지 양을 최소화하고 보안을 강화할 수 있다.
 
 Kinesis Firehose는 S3, Redshift, Elasticsearch or Splunk에만 작성할 수 있다.
 
@@ -351,7 +378,7 @@ VPC Sharing을 통해 여러 AWS 계정이 EC2 인스턴스, RDS 인스턴스, R
 
 ## AWS credentials on the EC2
 
-EC2 인스턴스에서 AWS 자격 증명을 유지하는 것은 잘못된 보안 관행이다. 대신 **IAM role**을 사용하여 EC2 인스턴스에서 실행되는 응용 프로그램의 임시 자격 증명을 관리한다. 이 role은 응용 프로그램이 다른 AWS 리소스를 호출할 때 사용할 수 있는 임시 사용 권한을 제공한다.
+EC2 인스턴스에서 **AWS credentials**을 유지하는 것은 잘못된 보안 관행이다. 대신 **IAM role**을 사용하여 EC2 인스턴스에서 실행되는 응용 프로그램의 임시 자격 증명을 관리한다. 이 role은 응용 프로그램이 다른 AWS 리소스를 호출할 때 사용할 수 있는 임시 사용 권한을 제공한다.
 
 <br>
 
@@ -444,6 +471,16 @@ Spot request가 지속되면 spot request가 중단된 후 다시 열린다.
 Spot block(지속 시간)을 가진 spot instance는 중단되지 않도록 설계되었다.
 
 Active spot request를 취소해도 연결된 인스턴스는 종료되지 않는다.
+
+<br>
+
+## Spot Fleets
+
+Spot Fleet은 사용자의 요구에 맞는 Spot Instance 풀을 선택하고 해당 Fleet의 목표 용량을 충족하기 위해 Spot Instance를 시작합니다.
+
+Spot Fleets = set of Spot Instances + (optional) On-Demand Instances
+
+가장 저렴한 spot instance를 선택해서 최저 가격 전략으로 최적할 수 있다.
 
 <br>
 
@@ -541,6 +578,8 @@ Amazon Aurora는 MySQL과 Postgre과 호환되는 완전 관리형  **관계형 
 
 Amazon Aurora serverless는 Amazon Aurora의 온디맨드 auto scaling 구성이다. 애플리케이션 요구 사항을 기반으로 자동으로 시작 및 종료하고 용량을 확장 또는 축소한다. **완전 관리형 auto scaling** 솔루션으로 <u>간헐적 또는 예측 불가능한 워크로드</u>를 위한 간단하고 비용 효율적인 옵션이다.
 
+OLTP 애플리케이션의 디비 설계는 관계 모델에 적합하므로 OLTP 시스템을 관계형 데이터베이스로 유추할 수 있다. Aurora serverless는 OLTP 데이터베이스로 0개의 서버로 축소하고 여러 개의 서버로 확장할 수 있는 데이터베이스를 만드는 완벽한 방법이다.
+
 <br>
 
 ## Amazon Aurora Global Database
@@ -575,7 +614,7 @@ Lambda는 직접 RESTful API 요청을 다룰 수 없다. API Gateway를 사용�
 
 Lambda는 다른 계정에도 write할 수 있다.
 
-Lambda funciton은 실행당 최대 15분까지 실행되도록 구성할 수 있다. 시간초과(timeout)를 1초에서 15분 사이의 값으로 설정할 수 있다.
+Lambda funciton은 실행당 최대 **15분**까지 실행되도록 구성할 수 있다. 시간초과(timeout)를 1초에서 15분 사이의 값으로 설정할 수 있다.
 
 만약 runtime에 문제가 있을 경우 lambda function의 실행이 실패한다.
 
@@ -752,6 +791,10 @@ Security Group rule은 항상 허용되므로 액세스를 거부하는 규칙�
 
 만약 A에서 들어오는 트래픽만을 허용하도록 B의 Security Group를 구성하는 방법은 A의 secuity group을 인증하는 규칙을 추가한다.
 
+Default rules for **default** security group : 동일한 security group에 할당된 **네트워크 인터페이스(및 관련 인스턴스)의 인바운드 트래픽 허용**, **모든 아웃바운드 트래픽 허용**
+
+Default rules for security group that **you create** : **모든 인바운드 트래픽 허용하지 않고**, **모든 아웃바운드 트래픽 허용**
+
 <br>
 
 ## SSE-C
@@ -856,7 +899,7 @@ EC2 인스턴스가 문제로 인해 손상될 경우 Cloudwatch를 통해 자�
 
 ## EC2 hibernate
 
-인스턴스를 Hibernate(최대 절전 모드)로 전환하면 AWS가 운영 체제에 최대 절전 모드를 수행하도록 신호를 보낸다.  최대 절전 모드에서는 RAM으로 로드된 내용을 다시 가져와 이전에 실행중인 프로세스를 다시 시작할 수 있다.
+인스턴스를 Hibernate(최대 절전 모드)로 전환하면 AWS가 운영 체제에 최대 절전 모드를 수행하도록 신호를 보낸다. 최대 절전 모드는 내용을 인스턴스 메모리(RAM)에서 EBS 루트 볼륨으로 저장한다. 그런 다음 AWS는 인스턴스의 Amazon EBS 루트 볼륨과 연결된 Amazon EBS 데이터 볼륨을 유지한다.
 
 때문에 오랜 시간 사용을 안하다가 나중에 사용하기 위해 미리 pre-warm이 필요한 경우 사용한다. 
 
@@ -1048,9 +1091,41 @@ ST1과 SC1 볼륨 유형은 부팅 볼륨으로 사용할 수 없다. / GP2, IO1
 
 <br>
 
+## Spread placement group
 
+Spread placement group는 서로 분리해야 하는 중요 인스턴스가 적은 응용프로그램이다. 인스턴스는 그룹당 **최대 7**개 까지 존재할 수 있다.
 
+<br>
 
+## Launch Template vs Launch Configuration
+
+**Launch Template**을 사용하면 **On-Demand Instance와 Spot Instance를 모두 사용하여 여러 인스턴스 유형에 걸쳐 용량을 프로비저닝**하여 원하는 확장, 성능 및 비용을 달성할 수 있다.
+
+Launch Configuration은 auto scaling group이 EC2 인스턴스를 시작하는데 사용하는 인스턴스 구성 템플릿이다. **Launch Configuration**을 사용하여  **On-Demand Instance와 Spot Instance를 모두 사용하여 여러 인스턴스 유형에 걸쳐 용량을 프로비저닝할 수는 없다.**
+
+<br>
+
+## IAM Permission boundary
+
+IAM Permission boundary는 IAM entity(user or role)에 대한 권한 경계를 지원한다. (group에는 적용되지 않는다)
+
+IAM Permission boundary는 관리되는 정책을 사용하여 ID 기반 정책이 IAM 엔티티에 부여할 수 있는 최대 사용 권한을 설정하는 고급 기능이다.
+
+<br>
+
+## Secret Manager
+
+Secret Manager는 애플리케이션, 서비스 및 IT 리소스에 액세스하는 데 필요한 기밀을 보호할 수 있다. 또한 전체 라이프사이클에 걸쳐 데이터베이스 자격 증명, API 키 및 기타 암호를 쉽게 순환, 관리 및 검색할 수 있다.
+
+Secrets Manager는 Amazon RDS, Amazon Redsift 및 Amazon DocumentDB에 내장된 통합 기능으로 secret rotation을 제공
+
+<br>
+
+## CloudHSM
+
+CloudHSM은 AWS 클라우드에서 암호화 키를 쉽게 생성하고 사용할 수 있는 클라우드 기반 HSM(하드웨어 보안 모듈)이다.
+
+CloudHSM은 비밀 저장소가 아닌 암호화 서비스이다.
 
 
 
