@@ -10,7 +10,7 @@ S3를 사용하면 **정적 웹 사이트를 호스팅**할 수 있다. 반면 �
 
 S3 bucket은 security group가 없다.
 
-S3는 데이터베이스 테이블에 대한 쿼리를 즉시 지원하는 데이터베이스 기술이 아니다.
+S3는 데이터베이스 테이블에 대한 **쿼리를 즉시 지원하는 데이터베이스 기술이 아니다.**
 
 인터넷에서 데이터를 전송할 때, **S3 데이터 전송 요금은 없다**. 또한 **S3TA에서는 가속된 전송에 대해서만 요금을 지불**한다.
 
@@ -20,7 +20,7 @@ S3는 아래의 대상에 이벤트를 게시할 수 있다.
 + Amazon SQS
 + AWS Lambda
 
-웹 브라우저는 웹 페이지와 다른 도메인 이름을 가진 서버에서 시작된 스크립트의 실행을 차단한다. 스크립트 실행을 허용하는 HTTP헤서들 보내기 위해서 Amazon S3를 CORS(Cross-Origin Resource Sharing)로 구성할 수 있다.
+웹 브라우저는 웹 페이지와 다른 도메인 이름을 가진 서버에서 시작된 스크립트의 실행을 차단한다. 스크립트 실행을 허용하는 HTTP헤더들 보내기 위해서 Amazon S3를 CORS(Cross-Origin Resource Sharing)로 구성할 수 있다.
 
 <br>
 
@@ -153,7 +153,9 @@ CloudFront는 **regional edge cache**가 있어 모든 유형의 컨텐츠, 특�
 
 CloudFront는 1GB 미만인 경우 최적의 성능을 보인다.
 
-CloudFront를 ASG 앞에 위치시키면 대폭 절감된 비용으로 컨텐츠를 안정적으로 배포할 수 있도록 지원하는 Global Caching 기능이 있다. 그러면 그만큼 ASG는 확장될 필요가 없다.
+CloudFront를 ASG 앞에 위치시키면 대폭 절감된 비용으로 컨텐츠를 안정적으로 배포할 수 있도록 지원하는 **Global Caching** 기능이 있다. 그러면 그만큼 ASG는 확장될 필요가 없다.
+
+CloudFront는 캐싱하기 때문에 **매우 동적인 content에는 적절하지 않다.**
 
 <br>
 
@@ -345,6 +347,8 @@ Transit VPC를 사용하여 여러 지역의 다양한 VPC와 고객 데이터 �
 Redshift Spectrum는 대규모 데이터 set 저장 및 분석을 위해 설계된 **페타바이트** 규모의 클라우드 기반 데이터 웨어하우스 제품이다.
 
 Redshift Spectrum을 사용하면 데이터를 Amazon Redshift 테이블에 로드할 필요 없이 **S3의 파일**에서 구조화 및 반구조화된 데이터를 효율적으로 쿼리하고 검색할 수 있다.
+
+웨어하우스는 분석하도록 설계되었고, 데이터베이스는 기록하도록 설계되었다.
 
 <br>
 
@@ -640,9 +644,9 @@ Lambda는 직접 RESTful API 요청을 다룰 수 없다. API Gateway를 사용�
 
 Lambda는 다른 계정에도 write할 수 있다.
 
-Lambda funciton은 실행당 최대 **15분**까지 실행되도록 구성할 수 있다. 시간초과(timeout)를 1초에서 15분 사이의 값으로 설정할 수 있다.
+Lambda funciton은 실행당 최대 **15분**까지 실행되도록 구성할 수 있다. **시간초과(timeout)**를 1초에서 15분 사이의 값으로 설정할 수 있다.
 
-만약 runtime에 문제가 있을 경우 lambda function의 실행이 실패한다.
+만약 **runtime에 문제**가 있을 경우 **lambda function의 실행이 실패**한다.
 
 lambda는 지역별로 계정당 1000개의 동시 실행을 지원한다. 만약 이러한 동시성(consistency) 할당량을 초과해서 제한을 높으려면 AWS 지원팀에 문의해야 한다.
 
@@ -734,6 +738,14 @@ Route 53 DNS failover는 EC2 인스턴스와 ELB의 상태 검사 결과를 결�
 
 <br>
 
+## Amazon Route 53 TTL
+
+TTL DNS recursive resolver가 이 레코드에 관한 정보를 캐싱할 시간(초)이다.
+
+만약 TTL에 더 긴 값을 지정하면 recursive resolver가 Router 53에 최신 정보를 요청하기 전에 기간이 더 긴 캐시 값을 사용하므로 레코드 변경이 적용되는데 걸리는 시간이 길어진다.
+
+<br>
+
 ## IAM vs Policy
 
 항목(topic) 또는 대기열(queue)에 대한 액세스를 제어하는 두 가지 방법
@@ -763,9 +775,9 @@ Amazon Transcribe는 오디오를 텍스트로 쉽게 변환할 수 있는 자�
 
 ## Amazon Athena
 
-Amazon Athena는 표준 SQL을 이용해 S3의 데이터를 쉽게 분석할 수 있는 대화형 쿼리 서비스이다.
+Amazon Athena는 표준 SQL을 이용해 **S3의 데이터를 쉽게 분석할 수 있는 대화형 쿼리 서비스**이다.
 
-Amazon Athena는 서버리스로 관리할 인프라가 없으며 사용자가 실행하는 쿼리에 대해서만 비용을 지불한다.
+Amazon Athena는 **서버리스**로 관리할 인프라가 없으며 사용자가 실행하는 쿼리에 대해서만 비용을 지불한다.
 
 <br>
 
@@ -849,6 +861,14 @@ SSE-KMS는 **감사 추적(audit trail)**이 가능하다.
 
 <br>
 
+## Client Side Encryption
+
+만약 회사의 고유 알고리즘을 사용해서 암호화한다고 하면 Client Side Encryption이다. 
+
+SSE-C,SSE-KMS 그리고 SSE-S3 모두 S3에서 암호화된다.
+
+<br>
+
 ## Cloud Formation
 
 Cloud Formation은 AWS 리소스를 자동으로 생성해주는 서비스이다.
@@ -881,7 +901,7 @@ Pilot Light는 중요한 **핵심 코어**를 중심으로 전체 운영 환경�
 
 ## Warm Standby
 
-Warm Standby는 전체 작동 환경의 축소된 버전이 실행되는 DR 시나리오를 설명하는데 사용된다.
+Warm Standby는 전체 작동 환경의 **축소된 버전**이 실행되는 DR 시나리오를 설명하는데 사용된다.
 
 AWS 내에서 이미 실행된 상태에서 대기한다.
 
@@ -1210,4 +1230,12 @@ VPC에서 가상 네트워크 카드를 나타내는 논리적 네트워킹 구�
 기존 ENI는 인스턴스에서 분리할 수 없지만, 보조 ENI는 분리하여 다른 인스턴스에 연결할 수 있다.
 
 ENI는 EC2 인스턴스에 연결하여 failover로 사용될 수 있다.
+
+<br>
+
+## Batch
+
+Batch job 나오면 **EC2**, Spot instance, Fargate(컨테이너에 적합) 생각하기
+
+<br>
 
