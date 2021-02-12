@@ -20,6 +20,8 @@ S3는 아래의 대상에 이벤트를 게시할 수 있다.
 + Amazon SQS
 + AWS Lambda
 
+웹 브라우저는 웹 페이지와 다른 도메인 이름을 가진 서버에서 시작된 스크립트의 실행을 차단한다. 스크립트 실행을 허용하는 HTTP헤서들 보내기 위해서 Amazon S3를 CORS(Cross-Origin Resource Sharing)로 구성할 수 있다.
+
 <br>
 
 ## AWS S3 Life cycle transition
@@ -28,9 +30,19 @@ S3는 아래의 대상에 이벤트를 게시할 수 있다.
 
 <br>
 
-## AWS S3 Storage 
+## S3 Storage 
 
 미사용 데이터와 전송중인 데이터에 **encryption**을 지원하는 S3 스토리지 클래스는 **S3 Glacier**이다.
+
+<br>
+
+## Type of access control in S3
+
+| Type of Access Control | AWS Account Level Control | User Level Control |
+| ---------------------- | ------------------------- | ------------------ |
+| IAM Policies           | No                        | Yes                |
+| ACLs                   | Yes                       | No                 |
+| Bucket Policies        | Yes                       | Yes                |
 
 <br>
 
@@ -99,7 +111,7 @@ AWS Direct Connect를 사용하면 네트워크와 AWS Direct Connect 위치 중
 
 AWS Direct Connect은 프로비저닝하는데 상당한 시간이 소요되고, 특정 사용 사례에 대한 overkill이다.
 
-Direct Connect를 백업 솔루션으로 사용하면 **public internet**이기 때문에 작동은 하지만 실패할 위험도 있다. 따라서 **Site to Site VPN**을 백업 연결로 사용한다.
+Direct Connect는 탁월한 성능과 보안이 보장된다(private connect). **Site to Site VPN**은 백업 연결로 사용한다.(public connect)
 
 <br>
 
@@ -133,11 +145,15 @@ AWS Global Accelerator는 로컬 또는 글로벌 사용자와 함께 애플리�
 
 CloudFront는 CDN(Content Delivery Network) 서비스로, 안전하고 확장 가능한 정적 및 동적 웹 컨텐츠, 비디오 스트림 및 API를 전 세계에 제공한다.
 
-CloudFront는 Edge Locations에서 콘텐츠를 **캐싱**함으로써 S3 버킷에 대한 로드를 줄이고 사용자가 콘텐츠를 요청할 때 빠르게 응답할 수 있도록 지원한다. S3에서 CloudFront까지 데이터 전송 수수료는 발생하지 않는다.
+CloudFront는 Edge Locations에서 콘텐츠를 **캐싱**함으로써 S3 버킷에 대한 **로드를 줄이고** 사용자가 콘텐츠를 요청할 때 빠르게 응답할 수 있도록 지원한다. S3에서 CloudFront까지 데이터 전송 수수료는 발생하지 않는다.
 
 CloudFront도 **지리적으로 분산된 **사용자에게 정적 컨텐츠를 배포할 수 있다.
 
 CloudFront는 **regional edge cache**가 있어 모든 유형의 컨텐츠, 특히 시간이 지남에 따라 인기가 떨어지는 경향이 있는 컨텐츠에 유용하다.
+
+CloudFront는 1GB 미만인 경우 최적의 성능을 보인다.
+
+CloudFront를 ASG 앞에 위치시키면 대폭 절감된 비용으로 컨텐츠를 안정적으로 배포할 수 있도록 지원하는 Global Caching 기능이 있다. 그러면 그만큼 ASG는 확장될 필요가 없다.
 
 <br>
 
@@ -216,6 +232,8 @@ Cross-Zone Load Balancing이 가능하다.
 Caching 기능이 없다.
 
 ALB는 EC2 기반 health check를 할 수 없다.
+
+인스턴스 중 하나에 장애가 발생하면 ALB가 장애 발생 인스턴스로 요청 보내는 것을 중지한다.
 
 <br>
 
@@ -366,6 +384,8 @@ Amazon API Gateway는 계정의 모든 API에 대한 정상 상태 속도 및 �
 
 API Gateway는 상태 비저장(stateless) 클라이언트-서버 통신을 활성화하고, WebSocket API는 상태 저장(stateful) 클라이언트-서버 통신을 활성화한다.
 
+API Gateway에서 API 캐싱을 활성화하여 엔드포인트의 응답을 캐시할 수 있다.
+
 <br>
 
 ## VPC Sharing
@@ -464,6 +484,8 @@ Spot Instance는 **가장 저렴한 인스턴스**로 장애에 대해 복원력
 
 Spot Instance는 중요한 작업(critical job) 또는 database에 적합하지 않다.
 
+가장 저렴한 옵션이지만 중단할 수 없거나 특정 시간 내에 완료해야 하는 작업에는 적합하지 않다.
+
 Spot Instance는 볼륨의 예측 불가능한 특성 및 **비용 절감**을 바란다면 on-demand 대신 권장된다.
 
 Spot request가 지속되면 spot request가 중단된 후 다시 열린다.
@@ -498,7 +520,11 @@ FIFO queue의 이름은 .fifo 접미사로 끝나야 한다.
 
 NAT는 Public Subnet에 있어 private subnet의 인스턴스가 인터넷에 연결되도록 한다.
 
-### NAT Instance vs NAT gateway
+NAT를 설치하고 나서는 인터는 트래픽이 NAT를 가리키도록 프라이빗 서브넷의 라우팅 테이블을 업데이트 해야 한다.
+
+<br>
+
+## NAT Instance vs NAT gateway
 
 NAT Instance는 Security group와 연결할 수 있다.  Vs NAT gateway는 Security group와 연결할 수 없다.
 
@@ -664,7 +690,7 @@ AWS Storage Gateway는 on-premise 데이터와 S3에 있는 클라우드 데이�
 
 DynamoDB는 완벽하게 관리되는 NoSQL 데이터베이스 서비스로서 원활한 확장성과 함께 빠르고 예측 가능한 성능을 제공한다.
 
-default로 모든 DynamoDB 테이블은 CloudTrail 로그에 기록되지 않는 <u>AWS **소유** 고객 마스터 키(CMK)</u>로 암호화된다.
+default로 모든 DynamoDB 테이블은 CloudTrail 로그에 기록되지 않는 AWS **소유** 고객 마스터 키**(AWS owned CMK)**로 암호화된다.
 
 <br>
 
@@ -700,12 +726,20 @@ Amazon Route 53 active-passive : 기본 리소스 또는 리소스 그룹이 대
 
 <br>
 
+## Amazon Route 53 health check
+
+Route 53이 활성화되면 개별 ELB 노드에 대한 상태 점검을 자동으로 구성하고 관리한다. 또한 ELB가 수행하는 EC2 인스턴스 상태 점검을 활용한다.
+
+Route 53 DNS failover는 EC2 인스턴스와 ELB의 상태 검사 결과를 결합하여 로드 밸런서의 상태와 EC2 인스턴스에서 실행 중인 애플리케이션의 상태를 평가할 수 있다.
+
+<br>
+
 ## IAM vs Policy
 
 항목(topic) 또는 대기열(queue)에 대한 액세스를 제어하는 두 가지 방법
 
-1. IAM 사용자 또는 그룹에 정책을 추가합니다. 사용자에게 항목 또는 대기열에 대한 권한을 부여하는 가장 간단한 방법은 그룹을 만들고 그룹에 적절한 정책을 추가한 다음 해당 그룹에 사용자를 추가하는 것입니다. 개별 사용자에 대해 설정한 정책을 추적하는 것보다 사용자를 그룹에서 추가 및 제거하는 것이 훨씬 쉽다.
-2. 항목 또는 대기열에 정책을 추가합니다. 항목 또는 <u>다른 AWS 계정</u>의 대기열에 권한을 부여하려는 경우 권한을 부여받을 AWS 계정을 주체로 하는 정책을 추가하는 방법밖에는 없습니다.
+1. **IAM 사용자 또는 그룹에 정책을 추가**합니다. 사용자에게 항목 또는 대기열에 대한 권한을 부여하는 가장 간단한 방법은 그룹을 만들고 그룹에 적절한 정책을 추가한 다음 해당 그룹에 사용자를 추가하는 것입니다. 개별 사용자에 대해 설정한 정책을 추적하는 것보다 사용자를 그룹에서 추가 및 제거하는 것이 훨씬 쉽다.
+2. **항목 또는 대기열에 정책을 추가**합니다. 항목 또는 <u>다른 AWS 계정</u>의 대기열에 권한을 부여하려는 경우 권한을 부여받을 AWS 계정을 주체로 하는 정책을 추가하는 방법밖에는 없습니다.
 
 대부분 첫번째 방법을 사용하지만, **다른 계정의 사용자에게 권한을 부여해야 하는 경우 두 번째 방법을 사용**해야 한다.
 
@@ -740,6 +774,8 @@ Amazon Athena는 서버리스로 관리할 인프라가 없으며 사용자가 �
 Cognito User pool을 활용하여 기본 제공하는 사용자 관리를 하거나 Facebook, Twitter, Google+ 및 Amazon과 같은 외부 ID 제공자와 통합할 수 있다.
 
 Cognito User pool는 권한 부여를 위해 API Gateway와 통합할 수 있다.
+
+Cognito User pool은 **CloudFront 배포와 직접 통합할 수 없고**, 인증을 받으려면 별로의 Lambda@Edge 기능을 생성해야 한다.
 
 <br>
 
@@ -853,13 +889,15 @@ AWS 내에서 이미 실행된 상태에서 대기한다.
 
 ## SNI (Server Name Indication)
 
+SNI는 동일한 IP address로 여러 웹 사이트가 존재할 수 있도록 허용하는 TLS 프로토콜  확장이다. 
+
 SNI를 통해 AWS는 동일한 ALB로 **두 개 이상의 인증서**를 쉽게 사용할 수 있다.
 
 <br>
 
 ## Elastic Load Balancer
 
-+ Connection Draining : ELB가 기존 연결을 열어두면서 등록 취소 중이거나 상태가 좋지 않은 인스턴스에 대한 요청 기능을 중지하도록 할 때 사용.
++ Connection Draining : Auto Scaling이 사용자의 요청을 처리 중인 EC2 인스턴스를 바로 삭제하지 못하도록 방지하는 기능이다.
 
 ELB는 들어오는 트래픽을 여러 AZ에서 여러 대상에 걸쳐 분산시키고 정상 대상만 트래픽을 수신하도록 보장한다. 다른 지역에 배포된 대상에 대해 수신 트래픽을 배포할 순 없다.
 
@@ -895,6 +933,8 @@ EC2 인스턴스가 문제로 인해 손상될 경우 Cloudwatch를 통해 자�
 
 대신 종료된 인스턴스는 복구할 수 없다.
 
+recovery action은 EBS 볼륨이 구성된 인스턴스에서만 지원된다.(instance store volume은 cloudwatch alarm에 의한 자동 복구 지원 안됨)
+
 <br>
 
 ## EC2 hibernate
@@ -911,7 +951,7 @@ EC2 인스턴스가 문제로 인해 손상될 경우 Cloudwatch를 통해 자�
 
 한 계정의 AZ us-west-a2는 다른 계정의 us-west-a2와 동일한 위치가 아닐 수 있다. 때문에 계정 간에 가용성 영역을 조정하려면 가용성 영역의 고유하고 일관된 식별자인 **AZ ID**를 이용해야 한다.
 
-<br>
+<br> 
 
 ## AWS Step Function
 
@@ -1067,6 +1107,14 @@ ST1과 SC1 볼륨 유형은 부팅 볼륨으로 사용할 수 없다. / GP2, IO1
 
 <br>
 
+## Elastic File System(EFS) vs Elastic Block Store(EBS)
+
+**EFS**는 **지역별** 스토리지 서비스이다. VS **EBS**는 **개별 AZ**로 범위가 지정된다.
+
+**AMI**는 **지역별** 서비스이다.
+
+<br>
+
 ## AWS account root user security recommendations
 
 1. Use a strong password to help protect account-level access to the AWS Management Console.
@@ -1127,11 +1175,39 @@ CloudHSM은 AWS 클라우드에서 암호화 키를 쉽게 생성하고 사용�
 
 CloudHSM은 비밀 저장소가 아닌 암호화 서비스이다.
 
+<br>
 
+## EC2 instance in Impaired status
 
+Amazon EC2 auto sacling은 impaired status(손상 상태)의 인스턴스를 즉시 종료하지 않는다. 대신 인스턴스가 복구될 때까지 몇 분 정도 기다린다.
 
+<br>
 
+## Dedicated Instance
 
+Dedicated Instance는 **단일 고객 전용 하드웨어**의 VPC에서 실행되는 Amazon EC2 인스턴스이다.
 
+Dedicated Instance는 사용자 전용 물리적 서버이기도 한다.
 
+Single-tenant hardware => Dedicated Instance
+
+<br>
+
+## Auto Scaling vs Application Load balancer
+
+만약 인스턴스 중 하나에 장애가 발생한다면?
+
+Auto Scaling은 종료한다. VS ALB는 장애 발생 인스턴스로 요청을 보내는 것을 중지한다.
+
+<br>
+
+## Elastic Network Interfaces (ENI)
+
+VPC에서 가상 네트워크 카드를 나타내는 논리적 네트워킹 구성 요소이다.
+
+인스턴스가 생성되면 자동으로 기본 ENI 생성됨
+
+기존 ENI는 인스턴스에서 분리할 수 없지만, 보조 ENI는 분리하여 다른 인스턴스에 연결할 수 있다.
+
+ENI는 EC2 인스턴스에 연결하여 failover로 사용될 수 있다.
 
