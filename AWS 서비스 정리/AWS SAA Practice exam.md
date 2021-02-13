@@ -163,7 +163,7 @@ CloudFront는 캐싱하기 때문에 **매우 동적인 content에는 적절하�
 
 + **Use CloudFront signed URLs**
   + signed URLs에는 콘텐츠에 대한 액세스를 보다 효과적으로 제어할 수 있는 추가 정보(예: 만료 날짜 및 시간)가 포함되어 있다.
-+ **Use CloudFront signed cookies
++ **Use CloudFront signed cookies**
   + CloudFront signed cookies를 사용하면 현재 URL을 변경하지 않으려는 경우 또는 웹 사이트의 구독자 영역에 있는 모든 파일에 대한 액세스를 제공하려는 경우 콘텐츠에 액세스할 수 있는 사용자를 제어할 수 있다.
 
 HTTPS는 개인 콘텐츠에 대한 액세스를 제한할 수 없다.
@@ -307,7 +307,7 @@ Multi-AZ 배포에서 Amazon RDS는 다른 가용성 영역에 synchronous 대�
 
 Multi-AZ는 URL은 같고 failover는 자동화되며 CNAME이 standby DB를 가리키도록 자동으로 업데이트됨을 의미한다.
 
-Multi-AZ는 synchronous(동기식) 복제를 따르고 단일 영역 내에서 최소 두 개의 가용성 영역에 걸쳐 있다. 
+Multi-AZ는 synchronous(동기식) 복제를 따르고 단일 영역 내에서 **최소 두 개의 가용성 영역**에 걸쳐 있다. 
 
 Read replica는 asynchronous(비동기식) 복제를 따르고 AZ, Cross-AZ, or Cross-Region 내에 일을 수 있다.
 
@@ -319,7 +319,7 @@ Read replica는 asynchronous(비동기식) 복제를 따르고 AZ, Cross-AZ, or 
 
 ## Database Engine level upgrade for an RDS DB 
 
-데이터베이스 엔진 레벨로 업그레이드하려면 다운타임이 필요하다. RDS DB 인스턴스가 Multi-AZ 배포를 사용하는 경우에는 주(primary) DB 인스턴스와 대기(standby) DB 인스턴스가 동시에 업그레이드된다.
+데이터베이스 엔진 레벨로 업그레이드하려면 **다운타임**이 필요하다. RDS DB 인스턴스가 Multi-AZ 배포를 사용하는 경우에는 주(primary) DB 인스턴스와 대기(standby) DB 인스턴스가 동시에 업그레이드된다.
 
 <br>
 
@@ -436,7 +436,7 @@ lifecycle hook을 사용하면 auto scaling 그룹이 인스턴스를 시작하�
 
 ## Rebalancing Activities
 
-Auto scaling과 달리 **rebalancing activity**는 EC2 auto scaling은 **이전 인스턴스를 종료하기 전에 새 인스턴스를 시작**하므로 재조정으로 인해 애플리케이션의 성능이나 가용성이 저하되지 않는다.
+Auto scaling과 달리 **rebalancing activity**는 **이전 인스턴스를 종료하기 전에 새 인스턴스를 시작**하므로 재조정으로 인해 애플리케이션의 성능이나 가용성이 저하되지 않는다.
 
 <br>
 
@@ -524,7 +524,7 @@ FIFO queue의 이름은 .fifo 접미사로 끝나야 한다.
 
 NAT는 Public Subnet에 있어 private subnet의 인스턴스가 인터넷에 연결되도록 한다.
 
-NAT를 설치하고 나서는 인터는 트래픽이 NAT를 가리키도록 프라이빗 서브넷의 라우팅 테이블을 업데이트 해야 한다.
+NAT를 설치하고 나서는 라우트 트래픽이 NAT를 가리키도록 프라이빗 서브넷의 라우팅 테이블을 업데이트 해야 한다.
 
 <br>
 
@@ -706,7 +706,7 @@ DynamoDB Stream은 DynamoDB 테이블의 항목 변경에 대한 **정보의 순
 
 ## DynamoDB - DAX
 
-DAX는 DynamoDB를 위한 완전히 관리되고 가용성이 높은 내장 메모리 **캐시**로서 초당 수백만 번의 요청에서도 밀리초에서 마이크로초까지 최대 10배의 성능 향항을 제공한다.
+DAX는 DynamoDB를 위한 완전히 관리되고 가용성이 높은 내장 메모리 **캐시**로서 초당 수백만 번의 요청에서도 밀리초에서 마이크로초까지 최대 10배의 성능 향상을 제공한다.
 
 DAX는 DynamoDB **읽기**를 기본적으로 **캐시**하는데 사용된다. (쓰기에는 도움이 되지 않는다.)
 
@@ -817,7 +817,7 @@ Amazon EventBridge는 유일하게 타사 **SaaS** 파트너와 직접 통합되
 
 서로 다른 버전의 애플리케이션을 실행하는 두 개의 동일한 환경 사이에서 트래픽을 이동하여 애플리케이션을 릴리즈하는 기술이다. 이러한 유형의 배포를 통해 현재 실행중인 애플리케이션 버전에 영향을 주지 않고 녹색 환경에서 기능을 테스트할 수 있다. 녹색 버전이 제대로 동작하고 있다면 만족하고 트래픽을 이전 파란색 환경에서 녹색 환경으로 점차 라우팅한다.
 
-이때 Global Accelerator를 사용하면 클라이언트 디바이스 및 인터넷 해결사의 DNS 캐시에 영향을 받지 않고 트래픽을 점진적으로 또는 녹색 환경과 그 반대로 한 번에 이동할 수 있으며, 트래픽 다이얼 및 엔드포인트 가중치 변경도 몇 초 내에 변경된다.
+이때 **Global Accelerator**를 사용하면 클라이언트 디바이스 및 인터넷 해결사의 DNS 캐시에 영향을 받지 않고 트래픽을 점진적으로 또는 녹색 환경과 그 반대로 한 번에 이동할 수 있으며, 트래픽 다이얼 및 엔드포인트 가중치 변경도 몇 초 내에 변경된다.
 
 <br>
 
