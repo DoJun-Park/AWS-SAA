@@ -1233,9 +1233,3 @@ ENI는 EC2 인스턴스에 연결하여 failover로 사용될 수 있다.
 
 <br>
 
-## Batch
-
-Batch job 나오면 **EC2**, Spot instance, Fargate(컨테이너에 적합) 생각하기
-
-<br>
-
