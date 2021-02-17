@@ -32,8 +32,6 @@
 
 <br>
 
-----
-
 ## 2021.02.12 자격등 획득!!!
 
 [자격증 취득 후기](https://velog.io/@dojun527/AWS-%EA%B3%B5%EC%9D%B8-%EC%86%94%EB%A3%A8%EC%85%98%EC%8A%A4-%EC%95%84%ED%82%A4%ED%85%8D%ED%8A%B8-%EC%96%B4%EC%86%8C%EC%8B%9C%EC%97%90%EC%9D%B4%ED%8A%B8-%EC%9E%90%EA%B2%A9%EC%A6%9D-%EC%B7%A8%EB%93%9D-%ED%9B%84%EA%B8%B0)
