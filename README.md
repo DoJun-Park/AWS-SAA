@@ -40,7 +40,7 @@
 
 
 
-![aws-certified-solutions-architect-associate](/Users/dojun/또롱/자격증/AWS SAA 자격증/aws-certified-solutions-architect-associate.png)
+![aws-certified-solutions-architect-associate](https://user-images.githubusercontent.com/48307561/108197221-6b3d2a80-715d-11eb-985d-334c07ba4765.png)
 
 
 
